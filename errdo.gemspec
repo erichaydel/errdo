@@ -1,0 +1,23 @@
+$LOAD_PATH.push File.expand_path('../lib', __FILE__)
+
+# Maintain your gem's version:
+require 'errdo/version'
+
+# Describe your gem and declare its dependencies:
+Gem::Specification.new do |s|
+  s.name        = 'errdo'
+  s.version     = Errdo::VERSION
+  s.authors     = ['erichaydel']
+  s.email       = ['erichaydel@gmail.com']
+  s.homepage    = 'https://github.com/erichaydel/errdo'
+  s.summary     = "Errdo allows developers to keep track of their users' experience on their site, simply and easily"
+  s.description = 'A simple plugin to handle, log, and customize production errors'
+  s.license     = 'MIT'
+
+  s.files = Dir['{app,config,db,lib}/**/*', 'MIT-LICENSE', 'Rakefile', 'README.rdoc']
+  s.test_files = Dir['test/**/*']
+
+  s.add_dependency 'rails', '~> 4.2.6'
+
+  s.add_development_dependency 'sqlite3'
+end

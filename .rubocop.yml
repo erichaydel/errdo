@@ -1,0 +1,35 @@
+AllCops:
+  DisplayCopNames: true
+  Exclude:
+    - '**/schema.rb'
+
+Metrics/CyclomaticComplexity:
+  Max: 10
+Metrics/MethodLength:
+  Max: 20
+Metrics/LineLength:
+  Max: 120
+Metrics/AbcSize:
+  Max: 25
+
+Style/EmptyLinesAroundClassBody:
+  EnforcedStyle: no_empty_lines
+Style/EmptyLinesAroundClassBody:
+  EnforcedStyle: empty_lines
+Style/EmptyLinesAroundModuleBody:
+  EnforcedStyle: empty_lines
+
+Style/ExtraSpacing:
+  ForceEqualSignAlignment: false
+
+Style/Documentation:
+  Enabled: false
+Style/RedundantReturn:
+  Enabled: false
+Style/StringLiterals:
+  Enabled: false
+Style/DotPosition:
+  EnforcedStyle: trailing
+Style/NumericLiterals:
+  Enabled: false
+
