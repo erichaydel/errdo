@@ -1,3 +1,5 @@
 = Errdo
 
+Because sometimes your users get ERRors, and you want to DO something about it.
+
 This project rocks and uses MIT-LICENSE.

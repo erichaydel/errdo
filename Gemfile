@@ -11,5 +11,15 @@ gemspec
 # your gem to rubygems.org.
 
 # To use a debugger
-gem 'pry', group: [:development, :test]
-gem 'byebug', group: [:development, :test]
+
+group :development, :test do
+  gem 'pry'
+  gem 'pry-byebug'
+  gem 'shoulda-context'
+  gem 'shoulda-matchers', '~> 2.0'    # Hasn't been updated to work with new shoulda. Check back.
+  gem 'minitest-reporters'
+  gem 'mini_backtrace'
+  gem 'guard'
+  gem 'guard-minitest'
+  gem 'simplecov', require: false
+end
