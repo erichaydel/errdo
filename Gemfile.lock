@@ -167,6 +167,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activerecord
   errdo!
   guard
   guard-minitest
