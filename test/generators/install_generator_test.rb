@@ -8,16 +8,19 @@ class InstallGeneratorTest < Rails::Generators::TestCase
   setup :make_application_rb
   setup :make_initializers_dir
 
-  should "assert all files are properly created" do
+  should "assert all files are properly created and exceptions app is set" do
     run_generator
     assert_file "config/initializers/errdo.rb"
+    assert_file "config/application.rb", /(config.exceptions_app = Errdo::ExceptionsApp)/
   end
 
   private
 
   def make_application_rb
     mkdir "#{destination_root}/config/"
-    File.open("#{destination_root}/config/application.rb", 'w') { |file| file.write("class Application\nend") }
+    File.open("#{destination_root}/config/application.rb", 'w') do |file|
+      file.write("module Dummy\n  class Application\n  end\nend")
+    end
   end
 
   def make_initializers_dir
