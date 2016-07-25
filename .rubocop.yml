@@ -17,7 +17,7 @@ Style/EmptyLinesAroundClassBody:
 Style/EmptyLinesAroundClassBody:
   EnforcedStyle: empty_lines
 Style/EmptyLinesAroundModuleBody:
-  EnforcedStyle: empty_lines
+  EnforcedStyle: no_empty_lines
 
 Style/ExtraSpacing:
   ForceEqualSignAlignment: false

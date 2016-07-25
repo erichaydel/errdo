@@ -11,7 +11,6 @@ class InstallGeneratorTest < Rails::Generators::TestCase
   should "assert all files are properly created and exceptions app is set" do
     run_generator
     assert_file "config/initializers/errdo.rb"
-    assert_file "config/application.rb", /(config.exceptions_app = Errdo::ExceptionsApp)/
   end
 
   private
