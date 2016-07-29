@@ -32,4 +32,5 @@ Style/DotPosition:
   EnforcedStyle: trailing
 Style/NumericLiterals:
   Enabled: false
-
+Style/GuardClause:
+  Enabled: false

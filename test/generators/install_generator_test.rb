@@ -8,7 +8,7 @@ class InstallGeneratorTest < Rails::Generators::TestCase
   setup :make_application_rb
   setup :make_initializers_dir
 
-  should "assert all files are properly created and exceptions app is set" do
+  should "assert initializer is properly created" do
     run_generator
     assert_file "config/initializers/errdo.rb"
   end
