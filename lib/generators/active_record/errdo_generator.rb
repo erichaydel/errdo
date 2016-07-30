@@ -5,6 +5,7 @@ module ActiveRecord
     class ErrdoGenerator < ActiveRecord::Generators::Base
 
       argument :attributes, type: :array, default: [], banner: "field:type field:type"
+
       source_root File.expand_path("../templates", __FILE__)
 
       def check_table_not_exists

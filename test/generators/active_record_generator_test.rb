@@ -24,8 +24,10 @@ class ActiveRecordGeneratorTest < Rails::Generators::TestCase
     end
   end
 
-  # should "revoke correctly" do
-
-  # end
+  should "revoke correctly" do
+    run_generator %w(err)
+    run_generator %w(err), behavior: :revoke
+    assert_no_migration "db/migrate/errdo_create_errs.rb"
+  end
 
 end
