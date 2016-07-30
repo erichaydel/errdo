@@ -4,14 +4,12 @@ module ActiveRecord
   module Generators
     class ErrdoGenerator < ActiveRecord::Generators::Base
 
-      TableAlreadyExistsError = Class.new(Thor::Error)
-
       argument :attributes, type: :array, default: [], banner: "field:type field:type"
       source_root File.expand_path("../templates", __FILE__)
 
       def check_table_not_exists
         if model_exists_in_db?
-          raise TableAlreadyExistsError, <<-ERROR
+          raise StandardError, <<-ERROR
             Seems that this model name already exists in the database (Or the name MODEL_instance exists)
             Please choose a different name and retry!
             ERROR

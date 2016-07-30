@@ -1,5 +1,5 @@
 require 'test_helper'
-
+require 'minitest/mock'
 require "generators/active_record/errdo_generator"
 
 class ActiveRecordGeneratorTest < Rails::Generators::TestCase
@@ -12,5 +12,20 @@ class ActiveRecordGeneratorTest < Rails::Generators::TestCase
     run_generator %w(err)
     assert_migration "db/migrate/errdo_create_errs.rb", /def change/
   end
+
+  should "throw error if table name already exists" do
+    capture(:stderr) do
+      assert_raises Exception do
+        ActiveRecord::Base.connection.stub(:table_exists?, true) do
+          run_generator %w(err)
+        end
+      end
+      assert_no_migration "db/migrate/errdo_create_errs.rb"
+    end
+  end
+
+  # should "revoke correctly" do
+
+  # end
 
 end
