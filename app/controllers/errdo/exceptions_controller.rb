@@ -7,9 +7,16 @@ module Errdo
     #   super
     # end
 
-    # def call(env)
-    #   super
-    # end
+    def call(env)
+      status       = env["PATH_INFO"][1..-1]
+      request      = ActionDispatch::Request.new(env)
+      content_type = request.formats.first
+      body         = {  status: status,
+                        error: Rack::Utils::HTTP_STATUS_CODES.fetch(status.to_i, Rack::Utils::HTTP_STATUS_CODES[500]) }
+
+      Errdo::Error.new(env)
+      render(status, content_type, body)
+    end
 
     # private
 

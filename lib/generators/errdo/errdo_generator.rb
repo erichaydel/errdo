@@ -27,7 +27,6 @@ module Errdo
     # Setting this to nil means that errors won't be tracked in the database
     # Note: The model name "{name}_instance" should also be free
     #
-    # Installing with the option --no-database should set this correctly
     config.error_name = :#{file_name}
           TEXT
         end
