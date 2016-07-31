@@ -1,9 +1,8 @@
 class ErrdoCreate<%= table_name.camelize %> < ActiveRecord::Migration<%= migration_version %>
   def change
     create_table :<%= table_name %> do |t|
-      t.string :error_id
-      t.string :error_class_name
-      t.string :error_message
+      t.string :exception_class_name
+      t.string :exception_message
       t.string :http_method
       t.string :host_name
       t.string :url

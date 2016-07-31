@@ -1,9 +1,8 @@
 class ErrdoCreateErrors < ActiveRecord::Migration
   def change
     create_table :errors do |t|
-      t.string :error_id
-      t.string :error_class_name
-      t.string :error_message
+      t.string :exception_class_name
+      t.string :exception_message
       t.string :http_method
       t.string :host_name
       t.string :url
