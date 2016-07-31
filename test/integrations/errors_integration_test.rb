@@ -12,4 +12,19 @@ class ErrorsIntegrationTest < ActionDispatch::IntegrationTest
     assert_equal 500, @response.status
   end
 
+  context "model creation after an error" do
+    should "make an error in the database if table name is set" do
+
+    end
+
+    should "not make an error in the database if table name is not set" do
+
+    end
+
+    should "not store a password in the params" do
+
+    end
+  end
+
+
 end

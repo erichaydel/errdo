@@ -11,7 +11,7 @@ module ActiveRecord
       def check_table_not_exists
         if model_exists_in_db?
           raise StandardError, <<-ERROR
-            Seems that this model name already exists in the database (Or the name MODEL_instance exists)
+            Seems that this model name already exists in the database (Or the name MODEL_occurrence exists)
             Please choose a different name and retry!
             ERROR
         end
@@ -23,13 +23,13 @@ module ActiveRecord
 
       private
 
-      def instance_table_name
-        "#{file_path}_instances"
+      def occurrence_table_name
+        "#{file_path}_occurrences"
       end
 
       def model_exists_in_db?
         ActiveRecord::Base.connection.table_exists? table_name
-        ActiveRecord::Base.connection.table_exists? "#{file_path}_instances"
+        ActiveRecord::Base.connection.table_exists? "#{file_path}_occurrences"
       end
 
       def rails5?

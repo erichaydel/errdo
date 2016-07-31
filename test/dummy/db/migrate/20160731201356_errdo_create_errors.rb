@@ -1,6 +1,6 @@
-class ErrdoCreate<%= table_name.camelize %> < ActiveRecord::Migration<%= migration_version %>
+class ErrdoCreateErrors < ActiveRecord::Migration
   def change
-    create_table :<%= table_name %> do |t|
+    create_table :errors do |t|
       t.string :error_id
       t.string :error_class_name
       t.string :error_message
@@ -13,15 +13,12 @@ class ErrdoCreate<%= table_name.camelize %> < ActiveRecord::Migration<%= migrati
       t.string :backtrace_hash
       t.integer :occurrence_count, default: 1
 
-<% attributes.each do |attribute| -%>
-      t.<%= attribute.type %> :<%= attribute.name %>
-<% end -%>
 
       t.timestamps null: false
     end
 
-    create_table :<%= occurrence_table_name %> do |t|
-      t.integer :<%= table_name.singularize %>_id
+    create_table :error_occurrences do |t|
+      t.integer :error_id
 
       t.string :experiencer_class
       t.integer :experiencer_id
@@ -39,9 +36,9 @@ class ErrdoCreate<%= table_name.camelize %> < ActiveRecord::Migration<%= migrati
       t.timestamps null: false
     end
 
-    add_index :<%= table_name %>, :backtrace_hash, unique: true
-    add_index :<%= occurrence_table_name %>, :experiencer_id
-    add_index :<%= occurrence_table_name %>, :experiencer_type
-    add_index :<%= occurrence_table_name %>, :<%= table_name.singularize %>_id
+    add_index :errors, :backtrace_hash, unique: true
+    add_index :error_occurrences, :experiencer_id
+    add_index :error_occurrences, :experiencer_type
+    add_index :error_occurrences, :error_id
   end
 end

@@ -14,7 +14,7 @@ module Errdo
       body         = {  status: status,
                         error: Rack::Utils::HTTP_STATUS_CODES.fetch(status.to_i, Rack::Utils::HTTP_STATUS_CODES[500]) }
 
-      Errdo::Error.new(env)
+      Errdo::Exception.new(env)
       render(status, content_type, body)
     end
 
