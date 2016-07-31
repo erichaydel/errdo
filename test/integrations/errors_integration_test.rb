@@ -2,6 +2,10 @@ require 'test_helper'
 
 class ErrorsIntegrationTest < ActionDispatch::IntegrationTest
 
+  setup do
+    Errdo.error_name = "errors"
+  end
+
   should "render a 404 error page" do
     get "#{root_path}/not-a-path"
     assert_equal 404, @response.status
@@ -39,25 +43,49 @@ class ErrorsIntegrationTest < ActionDispatch::IntegrationTest
       assert_not_nil @error_occurrence.user_agent, "User Agent"
       assert_not_nil @error_occurrence.referer, "Referer"
       assert_not_nil @error_occurrence.query_string, "Query string"
+      assert_not_nil @error_occurrence.param_values, "Param values"
       assert_not_nil @error_occurrence.cookie_values, "Cookie values"
       assert_not_nil @error_occurrence.header_values, "Header values"
     end
 
     should "not make an error in the database if table name is not set" do
-
+      # Theoretically, there shouldn't even be an error table
+      Errdo.stub :error_name, nil do
+        get static_generic_error_path
+      end
     end
 
     should "not store a password in the params" do
+      get static_generic_error_path, http_dirty_params
 
+      @error_occurrence = Errdo::ErrorOccurrence.last
+      dirty_words.each do |dirty_word|
+        assert_equal "...", @error_occurrence.param_values[dirty_word], "Dirty word #{dirty_word} not censored"
+      end
     end
   end
 
   private
 
+  def dirty_words
+    %w(password passwd password_confirmation secret confirm_password secret_token)
+  end
+
+  def http_dirty_params
+    {
+      "password" => "dirty",
+      "passwd" => "dirty",
+      "password_confirmation" => "dirty",
+      "secret" => "dirty",
+      "confirm_password" => "dirty",
+      "secret_token" => "dirty"
+    }
+  end
+
   def http_get_headers
     {
       "HTTP_USER_AGENT" => "TestGuy",
-      "HTTP_REFERER" => "Referer",
+      "HTTP_REFERER" => "Referer"
     }
   end
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160731212426) do
+ActiveRecord::Schema.define(version: 20160731225508) do
 
   create_table "error_occurrences", force: :cascade do |t|
     t.integer  "error_id"
@@ -21,10 +21,10 @@ ActiveRecord::Schema.define(version: 20160731212426) do
     t.string   "user_agent"
     t.string   "referer"
     t.string   "query_string"
-    t.string   "form_values"
-    t.string   "param_values"
-    t.string   "cookie_values"
-    t.string   "header_values"
+    t.text     "form_values"
+    t.text     "param_values"
+    t.text     "cookie_values"
+    t.text     "header_values"
     t.integer  "ocurrence_count",   default: 1
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false

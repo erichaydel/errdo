@@ -29,10 +29,10 @@ class ErrdoCreate<%= table_name.camelize %> < ActiveRecord::Migration<%= migrati
       t.string :user_agent
       t.string :referer
       t.string :query_string
-      t.string :form_values
-      t.string :param_values
-      t.string :cookie_values
-      t.string :header_values
+      t.text :form_values
+      t.text :param_values
+      t.text :cookie_values
+      t.text :header_values
 
       t.integer :ocurrence_count, default: 1
       t.timestamps null: false

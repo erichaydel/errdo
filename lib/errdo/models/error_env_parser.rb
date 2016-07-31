@@ -6,7 +6,6 @@ module Errdo
         @env = env
         @request = ActionDispatch::Request.new(env)
         @controller = @env["action_controller.instance"]
-        # binding.pry
       end
 
       def error_hash
@@ -26,22 +25,28 @@ module Errdo
           user_agent:           @request.try(:user_agent),
           referer:              @request.try(:referer),
           query_string:         @request.try(:query_string),
-          param_values:         sanitized_params(@request),
-          cookie_values:        @request.try(:cookies).try(:inspect),
+          param_values:         scrubbed_params(@request),
+          cookie_values:        @request.try(:cookies),
           header_values:        @controller.try(:headers)
         }
       end
 
       private
 
+      def dirty_words
+        %w(password passwd password_confirmation secret confirm_password secret_token)
+      end
+
       def prepare_backtrace(env)
         env["action_dispatch.exception"].try(:backtrace)
       end
 
-      def sanitized_params(request)
+      def scrubbed_params(request)
         params = request.try(:params)
-        params["password"] = "..." if params["password"]
-        params.try(:inspect)
+        dirty_words.each do |word|
+          params[word] = "..." if params[word]
+        end
+        params
       end
 
     end
