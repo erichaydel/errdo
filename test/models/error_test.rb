@@ -15,8 +15,12 @@ class ErrorTest < ActiveSupport::TestCase
   end
 
   context "model linkages" do
+    setup do
+      @error = FactoryGirl.create(:error)
+    end
+
     should "have correct relations" do
-      assert Errdo::Error.method_defined? :error_occurrences
+      @error.error_occurrences
     end
   end
 

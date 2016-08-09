@@ -7,4 +7,7 @@ FactoryGirl.define do
     host_name                 "www.example.com"
     url                       "www.example.com"
   end
+
+  factory :error_occurrence, class: "Errdo::ErrorOccurrence" do
+  end
 end

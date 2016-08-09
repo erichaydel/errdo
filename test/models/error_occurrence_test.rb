@@ -3,8 +3,12 @@ require 'test_helper'
 class ErrorOccurrenceTest < ActiveSupport::TestCase
 
   context "model linkages" do
+    setup do
+      @occ = FactoryGirl.create(:error_occurrence)
+    end
+
     should "have correct relations" do
-      assert Errdo::ErrorOccurrence.method_defined? :error
+      @occ.error
     end
   end
 
