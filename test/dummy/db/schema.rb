@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 20160731225508) do
     t.text     "param_values"
     t.text     "cookie_values"
     t.text     "header_values"
-    t.integer  "ocurrence_count",   default: 1
+    t.integer  "ocurrence_count",   default: 0
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
   end

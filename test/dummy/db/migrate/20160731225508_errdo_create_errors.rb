@@ -10,7 +10,7 @@ class ErrdoCreateErrors < ActiveRecord::Migration
       t.text :backtrace
 
       t.string :backtrace_hash
-      t.integer :occurrence_count, default: 1
+      t.integer :occurrence_count, default: 0
 
 
       t.timestamps null: false

@@ -7,7 +7,7 @@ module Errdo
     serialize :cookie_values
     serialize :header_values
 
-    belongs_to :error
+    belongs_to :error, counter_cache: :occurrence_count
 
   end
 end

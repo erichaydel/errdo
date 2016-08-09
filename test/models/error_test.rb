@@ -22,6 +22,12 @@ class ErrorTest < ActiveSupport::TestCase
     should "have correct relations" do
       @error.error_occurrences
     end
+
+    should "have counter cache for occurrences" do
+      assert_difference '@error.occurrence_count', 1 do
+        @error.error_occurrences.create
+      end
+    end
   end
 
 end
