@@ -22,6 +22,7 @@ module Errdo
       return @error
     end
 
+    # I need a more elegant way to do this
     def self.create_unique_string_from_params(params)
       params[:backtrace][0].to_s + params[:exception_message].to_s + params[:exception_class_name].to_s
     end
