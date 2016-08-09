@@ -6,6 +6,8 @@ ActiveRecord::Migrator.migrations_paths = [File.expand_path("../../test/dummy/db
 require "rails/test_help"
 require 'minitest/reporters'
 
+require 'factories'
+
 # Filter out Minitest backtrace while allowing backtrace from other libraries
 # to be shown.
 Minitest.backtrace_filter = Minitest::BacktraceFilter.new

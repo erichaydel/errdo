@@ -7,5 +7,7 @@ module Errdo
     serialize :cookie_values
     serialize :header_values
 
+    has_one :error
+
   end
 end

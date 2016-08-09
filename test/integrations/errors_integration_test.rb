@@ -27,7 +27,7 @@ class ErrorsIntegrationTest < ActionDispatch::IntegrationTest
     end
 
     # Ideally, we would like to test this in a unit test, but basically by definition we need an error environment
-    should "make an error and occurrence with the right fields" do
+    should "make an error and error_occurrence with the right fields" do
       get static_generic_error_path, {}, http_get_headers
       @error = Errdo::Error.last
       @error_occurrence = Errdo::ErrorOccurrence.last
@@ -61,6 +61,16 @@ class ErrorsIntegrationTest < ActionDispatch::IntegrationTest
       @error_occurrence = Errdo::ErrorOccurrence.last
       dirty_words.each do |dirty_word|
         assert_equal "...", @error_occurrence.param_values[dirty_word], "Dirty word #{dirty_word} not censored"
+      end
+    end
+
+    should "only store an error occurrence if same error already exists" do
+      get static_generic_error_path
+      assert_difference 'Errdo::Error.count', 0 do
+        get static_generic_error_path
+      end
+      assert_difference 'Errdo::ErrorOccurrence.count', 1 do
+        get static_generic_error_path
       end
     end
   end

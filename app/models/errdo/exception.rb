@@ -11,8 +11,8 @@ module Errdo
     private
 
     def create_errors(parser)
-      Errdo::Error.create(parser.error_hash)
-      Errdo::ErrorOccurrence.create(parser.error_occurrence_hash)
+      error = Errdo::Error.find_or_create(parser.error_hash)
+      error.try(:error_occurrences).try(:create, parser.error_occurrence_hash)
     end
 
   end
