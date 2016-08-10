@@ -73,6 +73,12 @@ class ErrorsIntegrationTest < ActionDispatch::IntegrationTest
         get static_generic_error_path
       end
     end
+
+    should "not fail when error is really long" do
+      assert_nothing_raised do
+        get static_long_error_path
+      end
+    end
   end
 
   private

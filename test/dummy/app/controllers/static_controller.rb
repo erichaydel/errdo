@@ -7,4 +7,8 @@ class StaticController < ApplicationController
     raise "standard-error"
   end
 
+  def long_error
+    raise "e" * 256
+  end
+
 end

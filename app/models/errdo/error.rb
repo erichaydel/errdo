@@ -24,15 +24,17 @@ module Errdo
 
     # I need a more elegant way to do this
     def self.create_unique_string_from_params(params)
-      params[:backtrace][0].to_s + params[:exception_message].to_s + params[:exception_class_name].to_s
+      params[:backtrace][0].to_s.last(50) +
+        params[:exception_message].to_s.last(20) +
+        params[:exception_class_name].to_s.last(20)
     end
 
     private
 
     def create_unique_string
-      self.backtrace_hash = backtrace.to_a[0].to_s +
-                            exception_message.to_s +
-                            exception_class_name.to_s
+      self.backtrace_hash = backtrace.to_a[0].to_s.last(50) +
+                            exception_message.to_s.last(20) +
+                            exception_class_name.to_s.last(20)
     end
 
   end

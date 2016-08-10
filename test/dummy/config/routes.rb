@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   get 'static/home'
   get 'static/generic_error'
+  get 'static/long_error'
 
   root to: "static#home"
 
