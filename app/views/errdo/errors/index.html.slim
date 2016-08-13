@@ -1,0 +1,34 @@
+#list
+    .well
+      span#filters_box
+      hr.filters_box
+      .input-group
+
+    table.table.table-condensed.table-striped
+      thead
+        tr
+          th.shrink
+            input.toggle
+
+
+            th
+          th.last.shrink
+      tbody
+        - @errors.each do |error|
+          tr
+            td
+              = error.exception_class_name
+            td
+              = error.exception_message
+
+
+    - if @errors.respond_to?(:total_count)
+      - total_count = @errors.total_count.to_i
+      .row
+        .col-md-6= paginate(@errors,remote: true)
+      .row
+        .col-md-6= link_to(t("admin.misc.show_all"), index_path(params.merge(all: true)), class: "show-all btn btn-default clearfix pjax") unless total_count > 100 || total_count <= @objects.to_a.size
+      .clearfix.total-count= "#{total_count} #{@model_config.pluralize(total_count).downcase}"
+
+    - else
+      .clearfix.total-count= "#{@errors.size}"
