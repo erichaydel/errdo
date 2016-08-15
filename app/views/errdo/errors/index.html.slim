@@ -11,18 +11,17 @@
             th.count-column Count
         tbody
           - @errors.each do |error|
-            = link_to main_app.root_path do
-              tr.errdo
-                td.errdo.time-column
-                  = link_to time_ago_in_words(error.last_occurrence.created_at) + " ago", main_app.root_path, class: "errdo"
-                td.errdo.user-column
-                  = link_to error.last_occurrence.experiencer_class, main_app.root_path, class: "errdo"
-                td.errdo.class-column
-                  = link_to error.exception_class_name, main_app.root_path, class: "errdo"
-                td.errdo.message-column
-                  = link_to error.exception_message, main_app.root_path, class: "errdo"
-                td.errdo.count-column
-                  = link_to error.occurrence_count, main_app.root_path, class: "errdo"
+            tr.errdo
+              td.errdo.time-column
+                = link_to time_ago_in_words(error.last_occurred_at) + " ago", error, class: "errdo"
+              td.errdo.user-column
+                = link_to error.last_occurrence.experiencer_class, root_path, class: "errdo"
+              td.errdo.class-column
+                = link_to error.exception_class_name, error, class: "errdo"
+              td.errdo.message-column
+                = link_to error.exception_message, error, class: "errdo"
+              td.errdo.count-column
+                = link_to error.occurrence_count, error, class: "errdo"
 
       - if @errors.respond_to?(:total_count)
         - total_count = @errors.total_count.to_i

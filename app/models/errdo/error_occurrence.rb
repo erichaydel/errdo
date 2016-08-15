@@ -9,5 +9,11 @@ module Errdo
 
     belongs_to :error, counter_cache: :occurrence_count
 
+    after_create :update_last_occurrence
+
+    def update_last_occurrence
+      error.update(last_occurred_at: created_at) if error
+    end
+
   end
 end

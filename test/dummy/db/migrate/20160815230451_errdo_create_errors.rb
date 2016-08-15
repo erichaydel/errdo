@@ -11,6 +11,7 @@ class ErrdoCreateErrors < ActiveRecord::Migration
 
       t.string :backtrace_hash
       t.integer :occurrence_count, default: 0
+      t.datetime :last_occurred_at
 
 
       t.timestamps null: false

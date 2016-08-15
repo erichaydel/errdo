@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160809031450) do
+ActiveRecord::Schema.define(version: 20160815230451) do
 
   create_table "error_occurrences", force: :cascade do |t|
     t.integer  "error_id"
@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(version: 20160809031450) do
     t.text     "backtrace"
     t.string   "backtrace_hash"
     t.integer  "occurrence_count",     default: 0
+    t.datetime "last_occurred_at"
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
   end

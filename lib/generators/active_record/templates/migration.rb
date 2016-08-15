@@ -11,6 +11,7 @@ class ErrdoCreate<%= table_name.camelize %> < ActiveRecord::Migration<%= migrati
 
       t.string :backtrace_hash
       t.integer :occurrence_count, default: 0
+      t.datetime :last_occurred_at
 
 <% attributes.each do |attribute| -%>
       t.<%= attribute.type %> :<%= attribute.name %>
