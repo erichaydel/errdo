@@ -1,0 +1,9 @@
+nav.navbar.navbar-default.navbar-fixed-top
+  .container-fluid
+    .navbar-header
+      a.navbar-brand
+        | Errdo
+    ul.nav.navbar-nav.navbar-right
+      li = link_to "Errors", root_path
+      - if main_app_root_path = (main_app.root_path rescue false)
+        li = link_to "App Home", main_app_root_path
