@@ -1,7 +1,7 @@
 module Errdo
   class Error < ActiveRecord::Base
 
-    require 'digest/sha1'
+    paginates_per 20
 
     self.table_name = Errdo.error_name
 
@@ -27,6 +27,10 @@ module Errdo
       params[:backtrace][0].to_s.last(50) +
         params[:exception_message].to_s.last(20) +
         params[:exception_class_name].to_s.last(20)
+    end
+
+    def last_occurrence
+      error_occurrences.order(created_at: :asc).last
     end
 
     private

@@ -30,4 +30,16 @@ class ErrorTest < ActiveSupport::TestCase
     end
   end
 
+  context "methods" do
+    setup do
+      @error = FactoryGirl.create(:error)
+    end
+
+    should "last_occurrence should get most recent occurrence" do
+      @occ1 = @error.error_occurrences.create(created_at: 1.week.ago)
+      @occ2 = @error.error_occurrences.create(created_at: 2.weeks.ago)
+      assert_equal @occ1, @error.last_occurrence
+    end
+  end
+
 end

@@ -1,2 +1,40 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+
+.time-column {
+  max-width: 1em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.user-column {
+  max-width: 1em;
+  text-overflow: ellipsis;
+}
+
+.class-column {
+  max-width: 2em;
+  text-overflow: ellipsis;
+}
+
+.message-column {
+  max-width: 2em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.count-column {
+  max-width: 0.5em;
+  text-overflow: ellipsis;
+  text-align: right;
+}
+
+table tr td a {
+  &.errdo {
+    display:block;
+    height:100%;
+    width:100%;
+  }
+}

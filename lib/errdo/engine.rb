@@ -5,6 +5,8 @@ module Errdo
 
     isolate_namespace Errdo
 
+    require "kaminari"
+
     config.autoload_paths += %W(#{config.root}/lib)
 
     config.before_initialize do |app|
