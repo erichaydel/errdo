@@ -74,10 +74,9 @@ class ErrorsIntegrationTest < ActionDispatch::IntegrationTest
       end
     end
 
-    should "not fail when error is really long" do
-      assert_nothing_raised do
-        get static_long_error_path
-      end
+    should "not have overly long error hash" do
+      get static_long_error_path
+      assert Errdo::Error.last.backtrace_hash.length <= 255
     end
   end
 
