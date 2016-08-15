@@ -80,6 +80,12 @@ class ErrorsIntegrationTest < ActionDispatch::IntegrationTest
     end
   end
 
+  context "viewing the index pages" do
+    should "succeed in showing the error index page" do
+      get errdo.errors_path
+    end
+  end
+
   private
 
   def dirty_words

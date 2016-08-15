@@ -1,7 +1,7 @@
+require 'bootstrap-sass'
+
 module Errdo
   class Engine < Rails::Engine
-
-    require 'bootstrap-sass'
 
     isolate_namespace Errdo
 
@@ -9,6 +9,10 @@ module Errdo
 
     config.before_initialize do |app|
       app.config.exceptions_app = Errdo::ExceptionsController.new(Rails.public_path)
+    end
+
+    initializer 'Errdo precompile hook', group: :all do |app|
+      app.config.assets.precompile += %w(errdo/errdo.css)
     end
 
   end
