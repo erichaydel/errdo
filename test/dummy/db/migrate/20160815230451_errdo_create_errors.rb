@@ -20,7 +20,7 @@ class ErrdoCreateErrors < ActiveRecord::Migration
     create_table :error_occurrences do |t|
       t.integer :error_id
 
-      t.string :experiencer_class
+      t.string :experiencer_type
       t.integer :experiencer_id
 
       t.string :ip

@@ -24,7 +24,7 @@
               td.errdo.time-column
                 = link_to time_ago_in_words(error.last_occurred_at) + " ago", error, class: "errdo"
               td.errdo.user-column
-                = link_to error.last_occurrence.experiencer_class, root_path, class: "errdo"
+                = link_to error.last_occurrence.experiencer_type, root_path, class: "errdo"
               td.errdo.class-column
                 = link_to error.exception_class_name, error, class: "errdo"
               td.errdo.message-column

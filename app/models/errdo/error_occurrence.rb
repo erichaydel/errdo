@@ -8,12 +8,13 @@ module Errdo
     serialize :header_values
 
     belongs_to :error, counter_cache: :occurrence_count
+    belongs_to :experiencer, polymorphic: true
 
     after_create :update_last_occurrence
 
-    def experiencer
-      experiencer_class.constantize.find(experiencer_id) if experiencer_class
-    end
+    # def experiencer
+    #   experiencer_type.constantize.find(experiencer_id) if experiencer_class
+    # end
 
     private
 

@@ -23,7 +23,7 @@ class ErrdoCreate<%= table_name.camelize %> < ActiveRecord::Migration<%= migrati
     create_table :<%= occurrence_table_name %> do |t|
       t.integer :<%= table_name.singularize %>_id
 
-      t.string :experiencer_class
+      t.string :experiencer_type
       t.integer :experiencer_id
 
       t.string :ip

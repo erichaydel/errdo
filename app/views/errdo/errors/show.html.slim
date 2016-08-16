@@ -3,7 +3,7 @@
     .col-md-3.col-md-offset-1
       h1
         | Last 5 occurrences
-      - @error.error_occurrences.last(5).each do |occurrence|
+      - @error.error_occurrences.order(created_at: :desc).last(5).each do |occurrence|
         div
           = link_to error_path(id: @error.id, occurrence_id: occurrence.id)
             = time_ago_in_words(occurrence.created_at) + " ago "

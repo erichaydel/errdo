@@ -11,11 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160815230451) do
+ActiveRecord::Schema.define(version: 20160816202941) do
 
   create_table "error_occurrences", force: :cascade do |t|
     t.integer  "error_id"
-    t.string   "experiencer_class"
+    t.string   "experiencer_type"
     t.integer  "experiencer_id"
     t.string   "ip"
     t.string   "user_agent"
@@ -25,14 +25,14 @@ ActiveRecord::Schema.define(version: 20160815230451) do
     t.text     "param_values"
     t.text     "cookie_values"
     t.text     "header_values"
-    t.integer  "ocurrence_count",   default: 1
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.integer  "ocurrence_count",  default: 1
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
   end
 
   add_index "error_occurrences", ["error_id"], name: "index_error_occurrences_on_error_id"
   add_index "error_occurrences", ["experiencer_id"], name: "index_error_occurrences_on_experiencer_id"
-  add_index "error_occurrences", [nil], name: "index_error_occurrences_on_experiencer_type"
+  add_index "error_occurrences", ["experiencer_type"], name: "index_error_occurrences_on_experiencer_type"
 
   create_table "errors", force: :cascade do |t|
     t.string   "exception_class_name"
@@ -49,5 +49,23 @@ ActiveRecord::Schema.define(version: 20160815230451) do
   end
 
   add_index "errors", ["backtrace_hash"], name: "index_errors_on_backtrace_hash", unique: true
+
+  create_table "users", force: :cascade do |t|
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          default: 0,  null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+  end
+
+  add_index "users", ["email"], name: "index_users_on_email", unique: true
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
 
 end
