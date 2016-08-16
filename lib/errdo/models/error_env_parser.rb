@@ -14,7 +14,7 @@ module Errdo
           exception_message:    @env["action_dispatch.exception"].try(:message),
           http_method:          @request.try(:request_method),
           host_name:            @request.try(:server_name),
-          url:                  @request.try(:url),
+          url:                  @request.try(:original_url),
           backtrace:            prepare_backtrace(@env)
         }
       end
