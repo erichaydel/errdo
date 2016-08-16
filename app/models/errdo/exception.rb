@@ -1,10 +1,11 @@
 module Errdo
   class Exception
 
-    def initialize(env, current_user)
+    def initialize(env)
+      user_parser = Errdo::Models::UserParser.new(env)
       unless Errdo.error_name.blank?
-        @parser = Errdo::Models::ErrorEnvParser.new(env, current_user)
-        create_errors(@parser)
+        @env_parser = Errdo::Models::ErrorEnvParser.new(env, user_parser)
+        create_errors(@env_parser)
       end
     end
 

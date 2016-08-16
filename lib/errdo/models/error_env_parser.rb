@@ -2,11 +2,11 @@ module Errdo
   module Models
     class ErrorEnvParser
 
-      def initialize(env, current_user)
+      def initialize(env, user_parser)
         @env = env
         @request = ActionDispatch::Request.new(env)
         @controller = @env["action_controller.instance"]
-        @user = current_user
+        @user = user_parser.user
       end
 
       def error_hash
@@ -30,7 +30,7 @@ module Errdo
           cookie_values:        @request.try(:cookies),
           header_values:        @controller.try(:headers),
           experiencer_id:       @user.try(:id),
-          experiencer_type:    @user.try(:class).try(:name)
+          experiencer_type:     @user.try(:class).try(:name)
         }
       end
 

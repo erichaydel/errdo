@@ -78,11 +78,11 @@ class ErrorsIntegrationTest < ActionDispatch::IntegrationTest
       get static_long_error_path
       assert Errdo::Error.last.backtrace_hash.length <= 255
     end
-  end
 
-  context "viewing the index pages" do
-    should "succeed in showing the error index page" do
-      get errdo.errors_path
+    should "make an error with the current user if a user is logged in" do
+      _sign_in users(:user)
+      get static_generic_error_path
+      assert_equal users(:user), Errdo::ErrorOccurrence.last.experiencer
     end
   end
 
@@ -108,6 +108,10 @@ class ErrorsIntegrationTest < ActionDispatch::IntegrationTest
       "HTTP_USER_AGENT" => "TestGuy",
       "HTTP_REFERER" => "Referer"
     }
+  end
+
+  def _sign_in(user)
+    post user_session_path, 'user[email]' => user.email, 'user[password]' =>  'foobar'
   end
 
 end
