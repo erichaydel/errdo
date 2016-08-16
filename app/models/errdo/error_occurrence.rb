@@ -11,6 +11,12 @@ module Errdo
 
     after_create :update_last_occurrence
 
+    def experiencer
+      experiencer_class.constantize.find(experiencer_id) if experiencer_class
+    end
+
+    private
+
     def update_last_occurrence
       error.update(last_occurred_at: created_at) if error
     end

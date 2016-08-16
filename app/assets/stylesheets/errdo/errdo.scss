@@ -38,3 +38,15 @@ table tr td a {
     width:100%;
   }
 }
+
+.errdo-backtrace-box {
+  white-space: nowrap;
+  overflow: scroll;
+  background-color: #f8f8f8;
+  padding: 10px;
+  max-height: 500px;
+}
+
+.errdo-cookies-box {
+  @extend .errdo-backtrace-box;
+}

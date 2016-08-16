@@ -1,2 +1,63 @@
-div
-  | sup
+.container-fluid
+  .row
+    .col-md-3.col-md-offset-1
+      h1
+        | Last 5 occurrences
+      - @error.error_occurrences.last(5).each do |occurrence|
+        div
+          = link_to error_path(id: @error.id, occurrence_id: occurrence.id)
+            = time_ago_in_words(occurrence.created_at) + " ago "
+            | to
+            = occurrence.experiencer || " nil"
+    .col-md-7
+
+      h3 Time Occurred
+      div = @occurrence.created_at
+
+      h3 Exception Class
+      div = @error.exception_class_name
+
+      h3 Exception message
+      div = @error.exception_message
+
+      h3 Experiencer
+      div = @occurrence.experiencer || "None"
+
+      h3 Backtrace
+      .errdo-backtrace-box
+        - @error.backtrace.each do |line|
+          div
+            = line
+
+      h3 IP address
+      div = @occurrence.ip
+
+      h3 User Agent
+      div = @occurrence.user_agent
+
+      h3 Referer
+      div = @occurrence.referer || "None"
+
+      h3 Param Values
+      div = @occurrence.param_values
+
+      h3 Cookie Values
+      .errdo-backtrace-box
+        = @occurrence.cookie_values
+
+      h3 Header Values
+      div = @occurrence.header_values
+
+      h3 HTTP Method
+      div = @error.http_method
+
+      h3 Host Name
+      div = @error.url
+
+      h3 Times occurred
+      = @error.occurrence_count
+
+      br
+      br
+      br
+      br
