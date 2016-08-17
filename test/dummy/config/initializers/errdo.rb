@@ -9,4 +9,8 @@ Errdo.setup do |config|
   config.error_name = :errors
 
   config.current_user_method = :current_user
+
+  config.user_string_method = :email
+
+  config.user_show_path = :user_path
 end

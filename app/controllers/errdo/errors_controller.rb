@@ -12,6 +12,8 @@ module Errdo
       @occurrence = selected_occurrence(@error)
     end
 
+    private
+
     def selected_occurrence(error)
       if params[:occurrence_id]
         Errdo::ErrorOccurrence.find(params[:occurrence_id])

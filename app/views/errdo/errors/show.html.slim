@@ -8,7 +8,7 @@
           = link_to error_path(id: @error.id, occurrence_id: occurrence.id)
             = time_ago_in_words(occurrence.created_at) + " ago "
             | to
-            = occurrence.experiencer || " nil"
+            = " " + user_show_string(occurrence.experiencer)
     .col-md-7
 
       h3 Time Occurred
@@ -21,7 +21,8 @@
       div = @error.exception_message
 
       h3 Experiencer
-      div = @occurrence.experiencer || "None"
+      div = link_to user_show_string(@occurrence.experiencer),
+            user_show_path(@occurrence.experiencer), class: "errdo"
 
       h3 Backtrace
       .errdo-backtrace-box

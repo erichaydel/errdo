@@ -2,9 +2,7 @@ require 'test_helper'
 
 class ViewsIntegrationTest < ActionDispatch::IntegrationTest
 
-  setup do
-    Errdo.error_name = "errors"
-  end
+  include Errdo::Helpers::ViewsHelper
 
   context "views" do
     setup do
@@ -17,6 +15,7 @@ class ViewsIntegrationTest < ActionDispatch::IntegrationTest
     end
 
     should "be able to successfully get the error's page" do
+      # For some reason, the first one always returns a 404
       get errdo.error_path(Errdo::Error.last)
       get errdo.error_path(Errdo::Error.last)
       assert_response :success
