@@ -2,6 +2,20 @@ require 'test_helper'
 
 class ErrorTest < ActiveSupport::TestCase
 
+  context "model attributes" do
+    setup do
+      @error = FactoryGirl.create(:error)
+    end
+
+    should "have right fields" do
+      @error.status
+    end
+
+    should "default status to active" do
+      assert @error.active?
+    end
+  end
+
   context "model validations" do
     setup do
       @error = FactoryGirl.create(:error)

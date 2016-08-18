@@ -5,6 +5,8 @@ module Errdo
 
     self.table_name = Errdo.error_name
 
+    enum status: [:active, :wontfix, :resolved]
+
     serialize :backtrace
 
     has_many :error_occurrences

@@ -16,6 +16,8 @@ class ErrdoCreate<%= table_name.camelize %> < ActiveRecord::Migration<%= migrati
       t.string :last_experiencer_type
       t.integer :last_experiencer_id
 
+      t.integer :status, default: 0
+
 <% attributes.each do |attribute| -%>
       t.<%= attribute.type %> :<%= attribute.name %>
 <% end -%>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160818002608) do
+ActiveRecord::Schema.define(version: 20160818011744) do
 
   create_table "error_occurrences", force: :cascade do |t|
     t.integer  "error_id"
@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(version: 20160818002608) do
     t.datetime "last_occurred_at"
     t.string   "last_experiencer_type"
     t.integer  "last_experiencer_id"
+    t.integer  "status",                default: 0
     t.datetime "created_at",                        null: false
     t.datetime "updated_at",                        null: false
   end
