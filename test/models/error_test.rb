@@ -28,17 +28,17 @@ class ErrorTest < ActiveSupport::TestCase
         @error.error_occurrences.create
       end
     end
+
+    should "set the last experiencer to the last occurrence's user" do
+      @occ1 = @error.error_occurrences.create(experiencer: users(:user))
+      @occ2 = @error.error_occurrences.create(experiencer: users(:user2))
+      assert_equal @occ2.experiencer, @error.last_experiencer
+    end
   end
 
   context "methods" do
     setup do
       @error = FactoryGirl.create(:error)
-    end
-
-    should "last_occurrence should get most recent occurrence" do
-      @occ1 = @error.error_occurrences.create(created_at: 1.week.ago)
-      @occ2 = @error.error_occurrences.create(created_at: 2.weeks.ago)
-      assert_equal @occ1, @error.last_occurrence
     end
   end
 

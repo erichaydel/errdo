@@ -13,6 +13,9 @@ class ErrdoCreateErrors < ActiveRecord::Migration
       t.integer :occurrence_count, default: 0
       t.datetime :last_occurred_at
 
+      t.string :last_experiencer_type
+      t.integer :last_experiencer_id
+
 
       t.timestamps null: false
     end
@@ -37,6 +40,9 @@ class ErrdoCreateErrors < ActiveRecord::Migration
     end
 
     add_index :errors, :backtrace_hash, unique: true
+    add_index :errors, :last_experiencer_id
+    add_index :errors, :last_experiencer_type
+
     add_index :error_occurrences, :experiencer_id
     add_index :error_occurrences, :experiencer_type
     add_index :error_occurrences, :error_id

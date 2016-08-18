@@ -8,6 +8,7 @@ module Errdo
     serialize :backtrace
 
     has_many :error_occurrences
+    belongs_to :last_experiencer, polymorphic: true
 
     before_validation :create_unique_string
 
@@ -27,10 +28,6 @@ module Errdo
       params[:backtrace][0].to_s.last(50) +
         params[:exception_message].to_s.last(20) +
         params[:exception_class_name].to_s.last(20)
-    end
-
-    def last_occurrence
-      error_occurrences.order(created_at: :asc).last
     end
 
     private

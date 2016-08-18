@@ -13,4 +13,5 @@ Errdo.setup do |config|
   config.user_string_method = :email
 
   config.user_show_path = :user_path
+
 end

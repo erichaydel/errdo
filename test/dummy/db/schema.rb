@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160816202941) do
+ActiveRecord::Schema.define(version: 20160818002608) do
 
   create_table "error_occurrences", force: :cascade do |t|
     t.integer  "error_id"
@@ -42,13 +42,17 @@ ActiveRecord::Schema.define(version: 20160816202941) do
     t.string   "url"
     t.text     "backtrace"
     t.string   "backtrace_hash"
-    t.integer  "occurrence_count",     default: 0
+    t.integer  "occurrence_count",      default: 0
     t.datetime "last_occurred_at"
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.string   "last_experiencer_type"
+    t.integer  "last_experiencer_id"
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
   end
 
   add_index "errors", ["backtrace_hash"], name: "index_errors_on_backtrace_hash", unique: true
+  add_index "errors", ["last_experiencer_id"], name: "index_errors_on_last_experiencer_id"
+  add_index "errors", ["last_experiencer_type"], name: "index_errors_on_last_experiencer_type"
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false

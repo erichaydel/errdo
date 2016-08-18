@@ -11,6 +11,7 @@ module Errdo
     belongs_to :experiencer, polymorphic: true
 
     after_create :update_last_occurrence
+    after_create :update_last_experiencer
 
     # def experiencer
     #   experiencer_type.constantize.find(experiencer_id) if experiencer_class
@@ -20,6 +21,10 @@ module Errdo
 
     def update_last_occurrence
       error.update(last_occurred_at: created_at) if error
+    end
+
+    def update_last_experiencer
+      error.update(last_experiencer: experiencer) if error
     end
 
   end

@@ -13,6 +13,9 @@ class ErrdoCreate<%= table_name.camelize %> < ActiveRecord::Migration<%= migrati
       t.integer :occurrence_count, default: 0
       t.datetime :last_occurred_at
 
+      t.string :last_experiencer_type
+      t.integer :last_experiencer_id
+
 <% attributes.each do |attribute| -%>
       t.<%= attribute.type %> :<%= attribute.name %>
 <% end -%>
@@ -40,6 +43,9 @@ class ErrdoCreate<%= table_name.camelize %> < ActiveRecord::Migration<%= migrati
     end
 
     add_index :<%= table_name %>, :backtrace_hash, unique: true
+    add_index :<%= table_name %>, :last_experiencer_id
+    add_index :<%= table_name %>, :last_experiencer_type
+
     add_index :<%= occurrence_table_name %>, :experiencer_id
     add_index :<%= occurrence_table_name %>, :experiencer_type
     add_index :<%= occurrence_table_name %>, :<%= table_name.singularize %>_id
