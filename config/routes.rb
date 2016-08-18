@@ -1,5 +1,5 @@
 Errdo::Engine.routes.draw do
-  resources :errors, only: [:index, :show]
+  resources :errors, only: [:show]
 
   root to: "errors#index"
 end
