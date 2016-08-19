@@ -11,6 +11,7 @@ require 'factories'
 # Filter out Minitest backtrace while allowing backtrace from other libraries
 # to be shown.
 Minitest.backtrace_filter = Minitest::BacktraceFilter.new
+Rails.backtrace_cleaner.remove_silencers!
 
 # Rails.backtrace_cleaner.remove_silencers!
 

@@ -50,3 +50,9 @@ table tr td a {
 .errdo-cookies-box {
   @extend .errdo-backtrace-box;
 }
+
+.errdo-status-select {
+  // margin-top: 10px;
+  margin-bottom: 5px;
+  width: 100%;
+}

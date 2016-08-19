@@ -9,6 +9,13 @@
             = time_ago_in_words(occurrence.created_at) + " ago "
             | to
             = " " + user_show_string(occurrence.experiencer)
+
+      h1
+        | Status
+      = form_for @error do |f|
+        = f.select(:status, Errdo::Error.statuses.keys, {}, class: "form-control errdo-status-select")
+        = f.submit "Update status", class: "btn btn-primary"
+
     .col-md-7
 
       h3 Time Occurred

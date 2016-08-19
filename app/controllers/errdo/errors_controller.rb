@@ -15,7 +15,22 @@ module Errdo
       @occurrence = selected_occurrence(@error)
     end
 
+    def update
+      @error = Errdo::Error.find(params[:id])
+      if @error.update(error_params)
+        flash[:notice] = "Success updating status!"
+      else
+        flash[:alert] = "Updating failed"
+      end
+      @occurrence = selected_occurrence(@error)
+      render :show
+    end
+
     private
+
+    def error_params
+      params.require(:error).permit(:status)
+    end
 
     def selected_occurrence(error)
       if params[:occurrence_id]
