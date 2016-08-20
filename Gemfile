@@ -24,4 +24,5 @@ group :development, :test do
   #gem 'guard-minitest'
   gem 'simplecov', require: false
   gem 'devise'        # To test logged in user tracking
+  gem 'cancancan'
 end

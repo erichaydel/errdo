@@ -11,7 +11,6 @@ module Errdo
     end
 
     def show
-      # binding.pry
       @error = Errdo::Error.find(params[:id])
       @occurrence = selected_occurrence(@error)
     end
@@ -28,6 +27,10 @@ module Errdo
     end
 
     private
+
+    def authorize_user
+      @authorization_adapter.try(:authorize, params["action"], Errdo::Error)
+    end
 
     def error_params
       params.require(:error).permit(:status)

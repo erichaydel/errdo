@@ -3,6 +3,8 @@ require 'test_helper'
 module Errdo
   class ErrorsControllerTest < ActionController::TestCase
 
+    include Devise::TestHelpers
+
     setup do
       @routes = Engine.routes
     end

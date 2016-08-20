@@ -1,8 +1,12 @@
 require 'errdo/engine'
+require 'errdo/extension'
+require 'errdo/extensions/cancancan'
 
 module Errdo
-
-  DEFAULT_AUTH = proc {}
+  # A lot of this authorization/authentication code was heavily inspired by Rails Admin gem, which is a great gem
+  # https://github.com/sferik/rails_admin
+  DEFAULT_AUTHENTICATE = proc {}
+  DEFAULT_AUTHORIZE = proc {}
 
   mattr_accessor :error_name
   @@error_name = :error
@@ -33,7 +37,20 @@ module Errdo
   #
   def self.authenticate_with(&block)
     @authenticate = block ? block : nil
-    @authenticate || DEFAULT_AUTH
+    @authenticate || DEFAULT_AUTHENTICATE
+  end
+
+  def self.authorize_with(*args, &block)
+    extension = args.shift
+    if extension
+      klass = Errdo::AUTHORIZATION_ADAPTERS[extension]
+      @authorize = proc do
+        @authorization_adapter = klass.new(*([self] + args).compact)
+      end
+    elsif block
+      @authorize = block
+    end
+    @authorize || DEFAULT_AUTHORIZE
   end
 
   def self.setup

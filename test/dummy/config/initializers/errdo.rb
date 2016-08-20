@@ -14,4 +14,5 @@ Errdo.setup do |config|
 
   config.user_show_path = :user_path
 
+  config.authorize_with :cancan
 end
