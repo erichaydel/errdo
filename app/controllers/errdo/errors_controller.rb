@@ -1,7 +1,7 @@
 require "slim"
 
 module Errdo
-  class ErrorsController < ApplicationController
+  class ErrorsController < Errdo::ApplicationController
 
     include Errdo::Helpers::ViewsHelper
     helper_method :user_show_string, :user_show_path
@@ -11,6 +11,7 @@ module Errdo
     end
 
     def show
+      # binding.pry
       @error = Errdo::Error.find(params[:id])
       @occurrence = selected_occurrence(@error)
     end
