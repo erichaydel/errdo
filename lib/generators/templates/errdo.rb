@@ -29,5 +29,6 @@ Errdo.setup do |config|
   config.user_string_method = :email
 
   # Setting this will allow the user string to be linked to the show path
+  # Default is the errdo root path
   # config.user_show_path = :user_path
 end

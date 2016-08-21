@@ -28,3 +28,20 @@ if ActiveSupport::TestCase.respond_to?(:fixture_path=)
 end
 
 require "generators/errdo/install_generator"
+
+class ActionDispatch::IntegrationTest # rubocop:disable Style/ClassAndModuleChildren
+
+  # Default the authentication to nothing so that we don't have to deal with it on regular tests
+  setup do
+    Errdo.authorize_with { true }
+  end
+
+end
+
+class ActionController::TestCase # rubocop:disable Style/ClassAndModuleChildren
+
+  setup do
+    Errdo.authorize_with { true }
+  end
+
+end

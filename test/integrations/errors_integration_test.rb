@@ -111,7 +111,7 @@ class ErrorsIntegrationTest < ActionDispatch::IntegrationTest
   end
 
   def _sign_in(user)
-    post user_session_path, 'user[email]' => user.email, 'user[password]' =>  'foobar'
+    post user_session_path, 'user[email]' => user.email, 'user[password]' => 'foobar'
   end
 
 end

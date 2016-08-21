@@ -7,17 +7,16 @@ class ViewsIntegrationTest < ActionDispatch::IntegrationTest
   context "views" do
     setup do
       get_via_redirect static_generic_error_path
+      @errdo = Errdo::Engine.routes.url_helpers
     end
 
     should "be able to successfully get the index" do
-      get errdo_path
+      get @errdo.root_path
       assert_response :success
     end
 
     should "be able to successfully get the error's page" do
-      # For some reason, the first one always returns a 404
-      get errdo.error_path(Errdo::Error.last)
-      get errdo.error_path(Errdo::Error.last)
+      get @errdo.error_path(Errdo::Error.last)
       assert_response :success
     end
   end

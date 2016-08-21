@@ -1,4 +1,13 @@
 Errdo.setup do |config|
+
+  config.current_user_method = :current_user
+
+  config.user_string_method = :email
+
+  config.user_show_path = :user_path
+
+  config.authorize_with :cancan
+
   # This is the name of the class inside your application that the exceptions are stored as.
   # Exceptions are a reserved class name.
   #
@@ -8,11 +17,4 @@ Errdo.setup do |config|
   #
   config.error_name = :errors
 
-  config.current_user_method = :current_user
-
-  config.user_string_method = :email
-
-  config.user_show_path = :user_path
-
-  config.authorize_with :cancan
 end

@@ -6,6 +6,8 @@ module Errdo
     include Errdo::Helpers::ViewsHelper
     helper_method :user_show_string, :user_show_path
 
+    before_action :authorize_user
+
     def index
       @errors = Errdo::Error.order(last_occurred_at: :desc).page params[:page]
     end

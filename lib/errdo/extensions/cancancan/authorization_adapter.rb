@@ -9,14 +9,12 @@ module Errdo
           @controller = controller
           @controller.instance_variable_set '@ability', ability
           @controller.extend ControllerExtension
-          @controller.current_ability.authorize! :access, :errdo
         end
 
         # This method is called in every controller action and should raise an exception
         # when the authorization fails. The first argument is the name of the controller
         # action as a symbol (:create, :bulk_delete, etc.). The second argument is the
-        # AbstractModel instance that applies. The third argument is the actual model
-        # instance if it is available.
+        # object to check
         def authorize(action, object)
           @controller.current_ability.authorize!(action, object) if action
         end
@@ -32,7 +30,7 @@ module Errdo
         module ControllerExtension
           def current_ability
             # use _current_user instead of default current_user so it works with
-            # whatever current user method is defined with eRRDO
+            # whatever current user method is defined with Errdo
             @current_ability ||= @ability.new(_current_user)
           end
         end

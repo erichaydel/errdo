@@ -6,6 +6,7 @@ FactoryGirl.define do
     http_method               "GET"
     host_name                 "www.example.com"
     url                       "www.example.com"
+    last_occurred_at          Time.current
   end
 
   factory :error_occurrence, class: "Errdo::ErrorOccurrence" do

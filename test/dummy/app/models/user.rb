@@ -4,13 +4,10 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
+  enum permission_class: [:regular, :loser] # For testing, loser has no permissions
 
   def user_string
     "stringhere"
-  end
-
-  def admin
-    false
   end
 
 end

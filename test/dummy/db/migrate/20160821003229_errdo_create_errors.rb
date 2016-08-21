@@ -16,7 +16,7 @@ class ErrdoCreateErrors < ActiveRecord::Migration
       t.string :last_experiencer_type
       t.integer :last_experiencer_id
 
-      t.integer :status
+      t.integer :status, default: 0
 
 
       t.timestamps null: false

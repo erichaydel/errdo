@@ -10,4 +10,8 @@ user:
 user2:
   email: "user2@example.com"
   encrypted_password: <%= User.new.send(:password_digest, 'foobar') %>
+loser:
+  email: "loser@example.com"
+  encrypted_password: <%= User.new.send(:password_digest, 'foobar') %>
+  permission_class: <%= User.permission_classes["loser"] %>
 
