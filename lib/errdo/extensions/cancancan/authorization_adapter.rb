@@ -16,6 +16,7 @@ module Errdo
         # action as a symbol (:create, :bulk_delete, etc.). The second argument is the
         # object to check
         def authorize(action, object)
+          # binding.pry
           @controller.current_ability.authorize!(action, object) if action
         end
 
