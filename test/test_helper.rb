@@ -29,7 +29,8 @@ end
 
 require "generators/errdo/install_generator"
 
-class ActionDispatch::IntegrationTest # rubocop:disable Style/ClassAndModuleChildren
+# rubocop:disable Style/ClassAndModuleChildren
+class ActionDispatch::IntegrationTest
 
   # Default the authentication to nothing so that we don't have to deal with it on regular tests
   setup do
@@ -38,7 +39,7 @@ class ActionDispatch::IntegrationTest # rubocop:disable Style/ClassAndModuleChil
 
 end
 
-class ActionController::TestCase # rubocop:disable Style/ClassAndModuleChildren
+class ActionController::TestCase
 
   setup do
     Errdo.authorize_with { true }

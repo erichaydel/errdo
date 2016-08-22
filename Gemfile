@@ -16,13 +16,14 @@ group :development, :test do
   gem 'pry'
   gem 'pry-byebug'
   gem 'shoulda-context'
-  gem 'shoulda-matchers', '~> 2.0'    # Hasn't been updated to work with new shoulda. Check back.
+  gem 'shoulda-matchers', '~> 2.0' # Hasn't been updated to work with new shoulda. Check back.
   gem 'minitest-reporters'
   gem 'mini_backtrace'
   gem 'factory_girl'
-  #gem 'guard'
-  #gem 'guard-minitest'
+  # gem 'guard'
+  # gem 'guard-minitest'
   gem 'simplecov', require: false
-  gem 'devise'        # To test logged in user tracking
+  gem 'devise' # To test logged in user tracking
   gem 'cancancan'
+  gem 'rubocop'
 end

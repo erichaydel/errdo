@@ -1,6 +1,8 @@
 module Errdo
-  EXTENSIONS = [] # rubocop:disable MutableConstant
-  AUTHORIZATION_ADAPTERS = {} # rubocop:disable MutableConstant
+  # rubocop:disable MutableConstant
+  EXTENSIONS = []
+  AUTHORIZATION_ADAPTERS = {}
+  # rubocop:enable MutableConstant
 
   # The extension may define various adapters (e.g., for authorization) and
   # register those via the options hash.

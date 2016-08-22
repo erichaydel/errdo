@@ -1,7 +1,6 @@
 module Errdo
   module Helpers
     module ViewsHelper
-
       def user_show_string(user)
         if user.respond_to?(Errdo.user_string_method || "")
           user.send(Errdo.user_string_method)
@@ -19,7 +18,6 @@ module Errdo
           errdo.root_path
         end
       end
-
     end
   end
 end

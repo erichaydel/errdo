@@ -8,6 +8,7 @@ module Errdo
   DEFAULT_AUTHENTICATE = proc {}
   DEFAULT_AUTHORIZE = proc {}
 
+  # rubocop:disable Style/ClassVars
   mattr_accessor :error_name
   @@error_name = :error
 
@@ -24,7 +25,9 @@ module Errdo
   # This is the 'show' page for a user so that you can click on a user and see all their info
   mattr_accessor :user_show_path
   @@user_show_path = nil
+  # rubocop:enable Style/ClassVars
 
+  # == Authentication ==
   # Setup authentication to be run as a before filter
   # This is run inside the controller instance so you can setup any authentication you need to
   #
@@ -40,6 +43,22 @@ module Errdo
     @authenticate || DEFAULT_AUTHENTICATE
   end
 
+  # == Authorization ==
+  # Setup authorization to be run as a before filter
+  # This is run inside the controller instance so you can setup any authorization you need to.
+  #
+  # By default, there is no authorization.
+  #
+  # @example
+  #   config.authorize_with do
+  #     redirect_to root_path unless warden.user.is_admin?
+  #   end
+  #
+  # To use an authorization adapter, pass the name of the adapter. For example,
+  # to use with CanCanCan[https://github.com/CanCanCommunity/cancancan], pass it like this.
+  #
+  # @example
+  #   config.authorize_with :cancan
   def self.authorize_with(*args, &block)
     extension = args.shift
     if extension

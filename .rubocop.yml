@@ -2,6 +2,10 @@ AllCops:
   DisplayCopNames: true
   Exclude:
     - '**/schema.rb'
+    - '**/migrate/**'
+    - '**/dummy/bin/**'
+    - 'test/tmp/**/*'
+    - lib/generators/active_record/templates/migration.rb
 
 Metrics/CyclomaticComplexity:
   Max: 10

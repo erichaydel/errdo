@@ -1,5 +1,4 @@
 Errdo.setup do |config|
-
   config.current_user_method = :current_user
 
   config.user_string_method = :email
@@ -16,5 +15,4 @@ Errdo.setup do |config|
   # Note: The model name "{name}_instance" should also be free
   #
   config.error_name = :errors
-
 end
