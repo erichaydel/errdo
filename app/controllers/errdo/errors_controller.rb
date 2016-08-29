@@ -31,6 +31,7 @@ module Errdo
     private
 
     def authorize_user
+      @authorization_adapter ||= nil
       @authorization_adapter.try(:authorize, params["action"], Errdo::Error)
     end
 

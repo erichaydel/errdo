@@ -22,6 +22,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'bootstrap-sass', '>= 3.0'
   s.add_dependency 'sass-rails', '>= 3.2'
   s.add_dependency 'kaminari', '~> 0.14'
+  s.add_dependency 'slack-notifier'
 
   s.add_development_dependency "activerecord"
   s.add_development_dependency 'sqlite3'

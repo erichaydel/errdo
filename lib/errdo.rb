@@ -1,6 +1,7 @@
 require 'errdo/engine'
 require 'errdo/extension'
 require 'errdo/extensions/cancancan'
+require 'slack-notifier'
 
 module Errdo
   # A lot of this authorization/authentication code was heavily inspired by Rails Admin gem, which is a great gem
@@ -25,6 +26,22 @@ module Errdo
   # This is the 'show' page for a user so that you can click on a user and see all their info
   mattr_accessor :user_show_path
   @@user_show_path = nil
+
+  # This is the webhook path for slack integration
+  mattr_accessor :slack_webhook
+  @@slack_webhook = nil
+
+  # The icon that the slack integration posts with
+  mattr_accessor :slack_icon
+  @@slack_icon = ":boom:"
+
+  # The name that the slack integration posts with
+  mattr_accessor :slack_name
+  @@slack_name = "Errdo-bot"
+
+  # The channel to post the errors to. Default is whatever the default of the integration is
+  mattr_accessor :slack_channel
+  @@slack_channel = nil
   # rubocop:enable Style/ClassVars
 
   # == Authentication ==
@@ -70,6 +87,23 @@ module Errdo
       @authorize = block
     end
     @authorize || DEFAULT_AUTHORIZE
+  end
+
+  def self.slack_notifier
+    @slack_notifier ||= nil
+    if @slack_notifier
+      @slack_notifier
+    elsif slack_webhook
+      begin
+        @slack_notifier = Slack::Notifier.new slack_webhook,
+                                              channel: slack_channel || nil,
+                                              icon_emoji: slack_icon,
+                                              username: slack_name
+      rescue => e
+        binding.pry
+        Rails.logger.error e
+      end
+    end
   end
 
   def self.setup

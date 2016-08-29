@@ -3,13 +3,13 @@ Errdo.setup do |config|
   # will allow the logged-in user to be recorded with the error
   # config.current_user_method = :current_user
 
-  ## == Devise integration
+  ## == Devise integration ==================
   # Some form of authentication here is basically necessary for authorization
   # config.authenticate_with do
   #   warden.authenticate! scope: :user
   # end
 
-  ## == Authorization==
+  ## == Authorization =======================
   # Setup authorization to be run as a before filter
   # This is run inside the controller instance so you can setup any authorization you need to.
   # By default, there is no authorization.
@@ -31,4 +31,16 @@ Errdo.setup do |config|
   # Setting this will allow the user string to be linked to the show path
   # Default is the errdo root path
   # config.user_show_path = :user_path
+
+  ## == Slack Integration ====================
+  # See the github page at https://github.com/erichaydel/errdo for more info on how to set up slack
+  # If you want to set up slack, this is the only required parameter
+  # config.slack_webhook = 'YOUR-WEBHOOK-HERE'
+
+  # You can customize what icon and name the notification posts with. Default is an explosion and "Errdo-bot"
+  # config.slack_icon = 'boom'
+  # config.slack_name = 'Errdo-bot'
+
+  # This configures the channel to post error notifications to.  If nothing is set, it will post the the default
+  # config.slack_channel = '#channel'
 end
