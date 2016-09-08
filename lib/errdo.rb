@@ -100,8 +100,8 @@ module Errdo
                                               icon_emoji: slack_icon,
                                               username: slack_name
       rescue => e
-        binding.pry
         Rails.logger.error e
+        nil
       end
     end
   end

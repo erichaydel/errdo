@@ -3,11 +3,9 @@ module Errdo
 
     def initialize(env)
       user_parser = Errdo::Models::UserParser.new(env)
-      unless Errdo.error_name.blank?
-        @env_parser = Errdo::Models::ErrorEnvParser.new(env, user_parser)
-        create_errors(@env_parser)
-      end
-      send_slack_notification(@env_parser)
+      @env_parser = Errdo::Models::ErrorEnvParser.new(env, user_parser)
+      error = create_errors(@env_parser) unless Errdo.error_name.blank?
+      send_slack_notification(error, @env_parser)
     end
 
     private
@@ -15,11 +13,12 @@ module Errdo
     def create_errors(parser)
       error = Errdo::Error.find_or_create(parser.error_hash)
       error.try(:error_occurrences).try(:create, parser.error_occurrence_hash)
+      return error
     end
 
-    def send_slack_notification(parser)
+    def send_slack_notification(error, parser)
       if Errdo.slack_notifier
-        messager = Errdo::Models::SlackMessager.new(parser)
+        messager = Errdo::Models::SlackMessager.new(error, parser)
         Errdo.slack_notifier.ping messager.message
       end
     end

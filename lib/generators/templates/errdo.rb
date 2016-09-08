@@ -38,7 +38,7 @@ Errdo.setup do |config|
   # config.slack_webhook = 'YOUR-WEBHOOK-HERE'
 
   # You can customize what icon and name the notification posts with. Default is an explosion and "Errdo-bot"
-  # config.slack_icon = 'boom'
+  # config.slack_icon = ':boom:'
   # config.slack_name = 'Errdo-bot'
 
   # This configures the channel to post error notifications to.  If nothing is set, it will post the the default

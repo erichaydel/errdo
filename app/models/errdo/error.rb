@@ -32,6 +32,10 @@ module Errdo
         params[:exception_class_name].to_s.last(20)
     end
 
+    def short_backtrace
+      backtrace.first if backtrace.respond_to?(:first)
+    end
+
     private
 
     def create_unique_string

@@ -2,6 +2,8 @@ module Errdo
   module Models
     class ErrorEnvParser
 
+      attr_accessor :user
+
       def initialize(env, user_parser)
         @env = env
         @request = ActionDispatch::Request.new(env)
@@ -32,6 +34,22 @@ module Errdo
           experiencer_id:       @user.try(:id),
           experiencer_type:     @user.try(:class).try(:name)
         }
+      end
+
+      def exception_name
+        @env["action_dispatch.exception"].class.to_s
+      end
+
+      def exception_message
+        @env["action_dispatch.exception"].try(:message)
+      end
+
+      def backtrace
+        prepare_backtrace(@env)
+      end
+
+      def short_backtrace
+        backtrace.first if backtrace.respond_to?(:first)
       end
 
       private
