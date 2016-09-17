@@ -20,6 +20,13 @@ class PluginsIntegrationTest < ActionDispatch::IntegrationTest
       get static_generic_error_path
       assert_not_requested :any, /.*slack.*/
     end
+
+    should "correctly send a notification when there is no database stored error" do
+      Errdo.error_name = nil
+      stub_request :any, /.*slack.*/
+      get static_generic_error_path
+      assert_requested :any, /.*slack.*/
+    end
   end
 
   teardown do
