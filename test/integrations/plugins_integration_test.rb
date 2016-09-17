@@ -4,17 +4,19 @@ class PluginsIntegrationTest < ActionDispatch::IntegrationTest
 
   setup do
     Errdo.error_name = "errors"
+    Errdo.slack_webhook = "https://slack.com/test"
   end
 
   context "slack integration" do
     should "send a slack notification when error is hit" do
-      Errdo.stub :slack_webhook, "https://slack.com/test" do
-        stub_request(:any, /.*slack.*/)
-        get static_generic_error_path
-        assert_requested :any, /.*slack.*/
-      end
-      Errdo.instance_variable_set(:@slack_notifier, nil)
+      stub_request :any, /.*slack.*/
+      get static_generic_error_path
+      assert_requested :any, /.*slack.*/
     end
+  end
+
+  teardown do
+    Errdo.instance_variable_set(:@slack_notifier, nil)
   end
 
   private
