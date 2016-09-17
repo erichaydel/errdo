@@ -9,6 +9,7 @@ ActiveRecord::Migrator.migrations_paths = [File.expand_path("../../test/dummy/db
 require "rails/test_help"
 require 'minitest/reporters'
 require 'webmock/minitest'
+WebMock.disable_net_connect!(allow: /.*codeclimate.*/)
 
 require 'factories'
 
