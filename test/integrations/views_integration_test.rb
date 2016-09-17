@@ -19,6 +19,11 @@ class ViewsIntegrationTest < ActionDispatch::IntegrationTest
       get @errdo.error_path(Errdo::Error.last)
       assert_response :success
     end
+
+    should "be able to get an error's page with a specific instance selected" do
+      get @errdo.error_path(Errdo::Error.last, occurence_id: Errdo::ErrorOccurrence.last)
+      assert_response :success
+    end
   end
 
 end
