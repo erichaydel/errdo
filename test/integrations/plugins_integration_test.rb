@@ -13,10 +13,18 @@ class PluginsIntegrationTest < ActionDispatch::IntegrationTest
       get static_generic_error_path
       assert_requested :any, /.*slack.*/
     end
+
+    should "not send a slack notification when error is hit if webhook is nil" do
+      Errdo.slack_webhook = nil
+      stub_request :any, /.*slack.*/
+      get static_generic_error_path
+      assert_not_requested :any, /.*slack.*/
+    end
   end
 
   teardown do
     Errdo.instance_variable_set(:@slack_notifier, nil)
+    Errdo.slack_webhook = nil
   end
 
   private
