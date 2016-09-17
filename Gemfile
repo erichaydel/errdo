@@ -11,6 +11,7 @@ gemspec
 # your gem to rubygems.org.
 
 # To use a debugger
+gem "codeclimate-test-reporter", group: :test, require: nil
 
 group :development, :test do
   gem 'pry'
