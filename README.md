@@ -1,4 +1,5 @@
 # Errdo
+![master build](https://travis-ci.org/erichaydel/errdo.svg?branch=master)
 
 Because sometimes your users get ERRors, and you want to DO something about it.
 
