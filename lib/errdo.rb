@@ -94,15 +94,10 @@ module Errdo
     if @slack_notifier
       @slack_notifier
     elsif slack_webhook
-      begin
-        @slack_notifier = Slack::Notifier.new slack_webhook,
-                                              channel: slack_channel || nil,
-                                              icon_emoji: slack_icon,
-                                              username: slack_name
-      rescue => e
-        Rails.logger.error e
-        nil
-      end
+      @slack_notifier = Slack::Notifier.new slack_webhook,
+                                            channel: slack_channel || nil,
+                                            icon_emoji: slack_icon,
+                                            username: slack_name
     end
   end
 

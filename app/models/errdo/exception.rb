@@ -19,7 +19,11 @@ module Errdo
     def send_slack_notification(error, parser)
       if Errdo.slack_notifier
         messager = Errdo::Models::SlackMessager.new(error, parser)
-        Errdo.slack_notifier.ping messager.message
+        begin
+          Errdo.slack_notifier.ping messager.message
+        rescue => e
+          Rails.logger.error e
+        end
       end
     end
 

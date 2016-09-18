@@ -1,5 +1,7 @@
 require 'test_helper'
 
+FAILSAFE_FAIL_STRING = "If you are the administrator of this website, then please read this web application's log file and/or the web server's log file to find out what went wrong."
+
 class PluginsIntegrationTest < ActionDispatch::IntegrationTest
 
   setup do
@@ -26,6 +28,12 @@ class PluginsIntegrationTest < ActionDispatch::IntegrationTest
       stub_request :any, /.*slack.*/
       get static_generic_error_path
       assert_requested :any, /.*slack.*/
+    end
+
+    should "not fail when the slack ping returns an error" do
+      stub_request(:any, /.*slack.*/).to_raise(StandardError)
+      get static_generic_error_path
+      assert_not response.body.include? FAILSAFE_FAIL_STRING
     end
   end
 
