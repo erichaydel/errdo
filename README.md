@@ -22,15 +22,21 @@ Next, you need to run the installer with
 
 `$ rails generate errdo:install`
 
-This will create an initializer called "errdo.rb" with configuration options inside. It's useful to read these options to customize and get exactly what you want.
+This will create an initializer called "errdo.rb" with configuration options inside. It's useful to read these options to customize to get exactly what you want.
 
 If you want to log the errors into a database, you'll now need to run
 
-`$ rails generate errdo MODEL` where MODEL is the optional error name you want to log. If left blank, it will default to "error". Run `rake db:migrate` next.
+`$ rails generate errdo MODEL`
+where MODEL is the optional error name you want to log. If left blank, it will default to "error".
+Run
+`rake db:migrate`
 
-To be able to see a list of all the errors in your application, mount the engine like so:
-` mount Errdo::Engine => "/errdo"` where you can replace "/errdo" with whatever you want.
-To link the error index page in your application, the route will be `errdo.root_path`
+To be able to see a list of all the errors in your application, mount the engine:
+` mount Errdo::Engine => "/errdo"`
+where you can replace "/errdo" with whatever you want.
+
+To link the error index page in your application, the route will be
+`errdo.root_path`
 
 This should be good enough to get everything working on a basic level.
 
@@ -42,7 +48,7 @@ And then, you know, break something.
 
 ## Authentication
 
-To authenticate, you must pass a block to the authenticate_with method in the initializer.  If you're using devise, the simple command is
+To authenticate, you must pass a block to the authenticate_with method in the initializer. If you're using devise, the simple command is
 ```
 config.authenticate_with do
       warden.authenticate! scope: :user
@@ -54,20 +60,24 @@ To keep track of the user that encounters an error, you'll want to set the curre
 
 By default, it's nil, which means that logged in users aren't recorded with the errors (Though the user-agent always is).
 
-If you want to be able to link to your user's page (and have it clickable from the error index page for quick navigation), set the `config.user_show_path` to the URL helper for your user's show page.  For example, in a normal application, this would be `:user_path`
+If you want to be able to link to your user's page (and have it clickable from the error index page for quick navigation), set the
+`config.user_show_path`
+to the URL helper for your user's show page. For example, in a normal application, this would be
+`:user_path`
 
 ## Authorization
 
 You probably don't want to rely on obfuscation to stop users from seeing your developer/admin side error index table.
 
-Similarly to authentication, you can pass a block to authenticate with. For example, you can pass a direct redirect call like so:
+Similarly to authentication, you can pass a block to authorize with. For example, you can pass a direct redirect call:
 ```
 config.authorize_with do
   redirect_to root_path unless warden.user.try(:is_admin?)
 end
 ```
 
- If you're using [CanCanCan](https://github.com/CanCanCommunity/cancancan), you can just pass `:cancan` as an option like so: `config.authorize_with :cancan`
+ If you're using [CanCanCan](https://github.com/CanCanCommunity/cancancan), you can just pass `:cancan` as an option:
+ `config.authorize_with :cancan`
 
 ## Notification Integrations
 
@@ -83,17 +93,26 @@ To get webhook url you need:
 in configurations press add configuration
 3. Choose channel, press "Add Incoming WebHooks integration"
 
-Set `config.slack_webhook = 'YOUR-WEBHOOK'`
+Set
+`config.slack_webhook = 'YOUR-WEBHOOK'`
+
 You can set a custom slack emoji icon and name for the bot that posts in your channel. See the initializer for more information.
 
 ## Sanitization
-By default, the words `password passwd password_confirmation secret confirm_password secret_token` are all scrubbed from the params before storing the error in the database. If you need something else scrubbed, let me know and I can add it. In the future, I want to make it customizable as well.
+By default, the words
+`password
+passwd
+password_confirmation
+secret
+confirm_password
+secret_token`
+ are all scrubbed from the params before storing the error in the database. If you need something else scrubbed, let me know and I can add it. In the future, I want to make it customizable as well.
 
 ## Contributing
 
 If there's a big feature you want, I would hope you would consider contributing.
 
-This gem happens on the brink of failure in the app. Exceptions in this gem lead to bad user experience, so everything is very well tested in minitest. As such, everything that gets submitted needs to be pretty well tested, for a multitude of reasons.
+This gem happens on the brink of failure in the app. Exceptions in this gem lead to bad user experience, so everything is very well tested in minitest. As such, everything that gets submitted needs to be pretty well tested.
 
 As far as style, I follow a subset of the [ruby style guide](https://github.com/bbatsov/ruby-style-guide). There's a rubocop file in the repo that's customized. I would highly appreciate if it you follow the style guide, to keep things clean. Honestly, though, I probably won't reject something just because of style.
 
