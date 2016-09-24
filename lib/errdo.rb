@@ -42,6 +42,9 @@ module Errdo
   # The channel to post the errors to. Default is whatever the default of the integration is
   mattr_accessor :slack_channel
   @@slack_channel = nil
+
+  mattr_accessor :dirty_words
+  @@dirty_words = %w(password passwd password_confirmation secret confirm_password secret_token)
   # rubocop:enable Style/ClassVars
 
   # == Authentication ==

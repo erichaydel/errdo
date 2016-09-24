@@ -64,6 +64,13 @@ class ErrorsIntegrationTest < ActionDispatch::IntegrationTest
       end
     end
 
+    should "not store a configurable dirty param in the params" do
+      Errdo.dirty_words += ["dirtyyyyy"]
+      get static_generic_error_path, "dirtyyyyy" => "stuff"
+      @error_occurrence = Errdo::ErrorOccurrence.last
+      assert_equal "...", @error_occurrence.param_values["dirtyyyyy"]
+    end
+
     should "only store an error occurrence if same error already exists" do
       get static_generic_error_path
       assert_difference 'Errdo::Error.count', 0 do

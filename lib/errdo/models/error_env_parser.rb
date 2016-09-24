@@ -54,17 +54,13 @@ module Errdo
 
       private
 
-      def dirty_words
-        %w(password passwd password_confirmation secret confirm_password secret_token)
-      end
-
       def prepare_backtrace(env)
         env["action_dispatch.exception"].try(:backtrace)
       end
 
       def scrubbed_params(request)
         params = request.try(:params)
-        dirty_words.each do |word|
+        Errdo.dirty_words.each do |word|
           params[word] = "..." if params[word]
         end
         params
