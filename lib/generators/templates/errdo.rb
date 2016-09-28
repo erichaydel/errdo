@@ -1,9 +1,13 @@
 Errdo.setup do |config|
+  # Add words to be scrubbed from the params here. By default, this is
+  # %w(password passwd password_confirmation secret confirm_password secret_token)
+  # So make sure you add on, not replace!
+  # Errdo.dirty_words += ["custom_param"]
+
+  ## == Authorization and Devise integration ==================
   # If you have the ability to track who's logged in, setting the current_user_method
   # will allow the logged-in user to be recorded with the error
   # config.current_user_method = :current_user
-
-  ## == Devise integration ==================
   # Some form of authentication here is basically necessary for authorization
   # config.authenticate_with do
   #   warden.authenticate! scope: :user
