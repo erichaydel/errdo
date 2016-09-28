@@ -6,7 +6,7 @@
 
 Because sometimes your users get ERRors, and you want to DO something about it.
 
-This gem is meant to be an simple all-in-one error solution for your rails application. It's an alternative to the complications of installing multiple gems to track, record, and notify yourself of errors that your users encounter. (Or paying for a big solution when you only want something simple)
+This gem is meant to be an simple all-in-one error solution for your rails application. It's an alternative to the complications of installing multiple gems to track, record, and notify yourself of errors that your users encounter. (Or paying for a big solution when you only want something simple.)
 
 I'm a big believer that every single app with a production server, whether it has users or not, should have some way to track errors. It leads to better code and can prevent a critical error from causing a mass exodus of users (something I have personal experience with).
 
@@ -118,7 +118,7 @@ secret_token`
 
 If there's a big feature you want, I would hope you would consider contributing.
 
-This gem happens on the brink of failure in the app. Exceptions in this gem lead to bad user experience, so everything is very well tested in minitest. As such, everything that gets submitted needs to be pretty well tested.
+This gem happens on the brink of failure in the app. Exceptions in this gem lead to bad user experience, so everything is very well tested in minitest. Everything submitted should have 95%+ code test coverage, at the very least.
 
 As far as style, I follow a subset of the [ruby style guide](https://github.com/bbatsov/ruby-style-guide). There's a rubocop file in the repo that's customized. I would highly appreciate if it you follow the style guide, to keep things clean. Honestly, though, I probably won't reject something just because of style.
 
