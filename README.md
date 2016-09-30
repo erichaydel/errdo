@@ -95,8 +95,8 @@ in configurations press add configuration
 
 Now, set a hash of all your slack values
 ```
-   Errdo.notify_with slack: {  webhook: "WEBHOOK-URL",
-                               icon: ":boom:"}
+Errdo.notify_with slack: {  webhook: "WEBHOOK-URL",
+                            icon: ":boom:"}
 ```
 
 You can set a custom slack emoji icon and name for the bot that posts in your channel. See the initializer for more information.
