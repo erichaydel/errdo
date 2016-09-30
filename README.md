@@ -111,13 +111,11 @@ password_confirmation
 secret
 confirm_password
 secret_token`
- are all scrubbed from the params before storing the error in the database. If you need something else scrubbed, let me know and I can add it.
+ are all scrubbed from the params before storing the error in the database. If you need something else scrubbed, you can customize this list of params in the initializer
 
- To customize this, add params with
+ `Errdo.dirty_words += ["custom_param"]`
 
- `# Errdo.dirty_words += ["custom_param"]`
-
- in the config file.
+Notice the `+=` instead of just `=`
 
 ## Contributing
 
