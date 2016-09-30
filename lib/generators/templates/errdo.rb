@@ -36,15 +36,15 @@ Errdo.setup do |config|
   # Default is the errdo root path
   # config.user_show_path = :user_path
 
-  ## == Slack Integration ====================
+  ## == Notification Integration ====================
   # See the github page at https://github.com/erichaydel/errdo for more info on how to set up slack
-  # If you want to set up slack, this is the only required parameter
-  # config.slack_webhook = 'YOUR-WEBHOOK-HERE'
+  # If you want to set up slack, this is the only required parameter.
+  # The rest are totally optional, and default to the values here
+  #
+  #   Errdo.notify_with slack: {  webhook: "WEBHOOK-URL",
+  #                               channel: nil
+  #                               icon: ":boom:",
+  #                               name: "Errdo-bot" }
 
-  # You can customize what icon and name the notification posts with. Default is an explosion and "Errdo-bot"
-  # config.slack_icon = ':boom:'
-  # config.slack_name = 'Errdo-bot'
-
-  # This configures the channel to post error notifications to.  If nothing is set, it will post the the default
-  # config.slack_channel = '#channel'
+  # For now, slack is the only integration. More coming soon!
 end

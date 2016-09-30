@@ -1,12 +1,12 @@
 require 'test_helper'
 
-FAILSAFE_FAIL_STRING = "If you are the administrator of this website, then please read this web application's log file and/or the web server's log file to find out what went wrong."
+FAILSAFE_FAIL_STRING = "If you are the administrator of this website, then please read this web application's \
+                        log file and/or the web server's log file to find out what went wrong.".freeze
 
 class PluginsIntegrationTest < ActionDispatch::IntegrationTest
 
   setup do
-    Errdo.error_name = "errors"
-    Errdo.slack_webhook = "https://slack.com/test"
+    Errdo.notify_with slack: { webhook: "https://slack.com/test" }
   end
 
   context "slack integration" do
@@ -16,8 +16,8 @@ class PluginsIntegrationTest < ActionDispatch::IntegrationTest
       assert_requested :any, /.*slack.*/
     end
 
-    should "not send a slack notification when error is hit if webhook is nil" do
-      Errdo.slack_webhook = nil
+    should "not send a slack notification when error is hit if webhook is not set" do
+      Errdo.instance_variable_set(:@notifiers, [])
       stub_request :any, /.*slack.*/
       get static_generic_error_path
       assert_not_requested :any, /.*slack.*/
@@ -28,6 +28,7 @@ class PluginsIntegrationTest < ActionDispatch::IntegrationTest
       stub_request :any, /.*slack.*/
       get static_generic_error_path
       assert_requested :any, /.*slack.*/
+      Errdo.error_name = :errors
     end
 
     should "not fail when the slack ping returns an error" do
@@ -38,8 +39,7 @@ class PluginsIntegrationTest < ActionDispatch::IntegrationTest
   end
 
   teardown do
-    Errdo.instance_variable_set(:@slack_notifier, nil)
-    Errdo.slack_webhook = nil
+    Errdo.instance_variable_set(:@notifiers, [])
   end
 
   private
