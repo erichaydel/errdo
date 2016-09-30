@@ -41,7 +41,7 @@ To link the error index page in your application, the route will be
 This should be good enough to get everything working on a basic level.
 
 To test this in your development environment, make sure you set
-`config.consider_all_requests_local = true`
+`config.consider_all_requests_local = false`
 in your `development.rb`
 
 And then, you know, break something.
