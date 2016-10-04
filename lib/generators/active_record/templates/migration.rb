@@ -17,6 +17,7 @@ class ErrdoCreate<%= table_name.camelize %> < ActiveRecord::Migration<%= migrati
       t.integer :last_experiencer_id
 
       t.integer :status, default: 0
+      t.string :importance, default: "error"
 
 <% attributes.each do |attribute| -%>
       t.<%= attribute.type %> :<%= attribute.name %>
@@ -45,6 +46,7 @@ class ErrdoCreate<%= table_name.camelize %> < ActiveRecord::Migration<%= migrati
     end
 
     add_index :<%= table_name %>, :backtrace_hash, unique: true
+    add_index :<%= table_name %>, :importance
     add_index :<%= table_name %>, :last_experiencer_id
     add_index :<%= table_name %>, :last_experiencer_type
 

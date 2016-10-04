@@ -17,6 +17,7 @@ class ErrdoCreateErrors < ActiveRecord::Migration
       t.integer :last_experiencer_id
 
       t.integer :status, default: 0
+      t.string :importance, default: "error"
 
 
       t.timestamps null: false
@@ -42,6 +43,7 @@ class ErrdoCreateErrors < ActiveRecord::Migration
     end
 
     add_index :errors, :backtrace_hash, unique: true
+    add_index :errors, :importance
     add_index :errors, :last_experiencer_id
     add_index :errors, :last_experiencer_type
 

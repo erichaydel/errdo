@@ -99,6 +99,28 @@ module Errdo
     @notifiers ||= []
   end
 
+  # Logs the error to the database (only)
+  def self.log(*args)
+    Errdo::Logger.new('info', *args).log
+  end
+
+  # Notifies without writing to the database
+  def self.notify(*args)
+    Errdo::Notifier.new(*args).notify
+  end
+
+  # Logs the error to the database as a warning
+  def self.warn(*args)
+    Errdo::Logger.new('warning', *args).log
+    Errdo::Notifier.new(*args).notify
+  end
+
+  # Logs the error to the database and notifies the user
+  def self.error(*args)
+    Errdo::Logger.new('error', *args).log
+    Errdo::Notifier.new(*args).notify
+  end
+
   def self.setup
     yield self
   end

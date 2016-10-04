@@ -2,7 +2,7 @@ module Errdo
   module Models
     class ErrorEnvParser
 
-      attr_accessor :user, :exception_name, :exception_message, :http_method,
+      attr_accessor :user, :exception_class_name, :exception_message, :http_method,
                     :host_name, :url, :backtrace, :ip, :user_agent, :referer,
                     :query_string, :param_values, :cookie_values, :header_values,
                     :experiencer_id, :experiencer_type
@@ -18,12 +18,14 @@ module Errdo
 
       def error_hash
         {
-          exception_class_name: @exception_class_name,
-          exception_message:    @exception_message,
-          http_method:          @http_method,
-          host_name:            @host_name,
-          url:                  @url,
-          backtrace:            @backtrace
+          exception_class_name:   @exception_class_name,
+          exception_message:      @exception_message,
+          http_method:            @http_method,
+          host_name:              @host_name,
+          url:                    @url,
+          backtrace:              @backtrace,
+          last_experiencer_id:    @experiencer_id,
+          last_experiencer_type:  @experiencer_type
         }
       end
 
