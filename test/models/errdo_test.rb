@@ -31,6 +31,27 @@ class ErrdoTest < ActiveSupport::TestCase
         assert_requested :any, /.*slack.*/
       end
 
+      should "create an error and send notification with Errdo.warning" do
+        assert_difference 'Errdo::Error.count', 1 do
+          Errdo.warn
+        end
+        assert_requested :any, /.*slack.*/
+      end
+
+      should "not create an error, but should send notification with Errdo.log" do
+        assert_difference 'Errdo::Error.count', 0 do
+          Errdo.notify
+        end
+        assert_requested :any, /.*slack.*/
+      end
+
+      should "create an error, but should not send notification with Errdo.info" do
+        assert_difference 'Errdo::Error.count', 1 do
+          Errdo.log
+        end
+        assert_not_requested :any, /.*slack.*/
+      end
+
       should "create an error with the correct params" do
         exception = nil
         begin
