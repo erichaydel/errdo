@@ -47,10 +47,9 @@ module Errdo
         @exception_class_name = exception.present? ? exception.class.to_s : "None"
         @exception_message =    message_string || exception.try(:message)
         @backtrace =            prepare_backtrace(exception)
-        return if params.nil?
         @param_values =         params
-        @experiencer_id =       params[:user].try(:id)
-        @experiencer_type =     params[:user].try(:class).try(:name)
+        @experiencer_id =       params.try(:[], :user).try(:id)
+        @experiencer_type =     params.try(:[], :user).try(:class).try(:name)
       end
 
       def prepare_backtrace(exception)
