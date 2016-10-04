@@ -11,4 +11,8 @@ class StaticController < ApplicationController
     raise "e" * 256
   end
 
+  def log
+    Errdo.error "This is the error", user: current_user, data: "This is the data"
+  end
+
 end

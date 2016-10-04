@@ -15,8 +15,8 @@ module Errdo
                                                   username: options[:name] || 'Errdo-bot'
         end
 
-        def notify(error, parser)
-          messager = SlackMessager.new(error, parser)
+        def notify(parser)
+          messager = SlackMessager.new(parser)
           begin
             @slack_notifier.ping messager.message
           rescue => e
@@ -30,18 +30,11 @@ module Errdo
 
         include Errdo::Helpers::ViewsHelper # For the naming of the user in the message
 
-        def initialize(error, parser)
-          if error.nil?
-            @user = parser.user
-            @backtrace = parser.short_backtrace
-            @exception_name = parser.exception_name
-            @exception_message = parser.exception_message
-          else
-            @user = error.last_experiencer
-            @backtrace = error.short_backtrace
-            @exception_name = error.exception_class_name
-            @exception_message = error.exception_message
-          end
+        def initialize(parser)
+          @user = parser.user
+          @backtrace = parser.short_backtrace
+          @exception_name = parser.exception_name
+          @exception_message = parser.exception_message
         end
 
         def message
@@ -51,7 +44,7 @@ module Errdo
         private
 
         def exception_string
-          "#{@exception_name} | #{@exception_message}"
+          "#{@exception_name || 'None'} | #{@exception_message}"
         end
 
         def user_message_addon
