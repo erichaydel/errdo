@@ -26,5 +26,8 @@ group :development, :test do
   gem 'simplecov', require: false
   gem 'devise' # To test logged in user tracking
   gem 'cancancan'
+end
+
+group :development do
   gem 'rubocop'
 end
