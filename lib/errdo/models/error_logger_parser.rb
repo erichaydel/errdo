@@ -47,7 +47,7 @@ module Errdo
         @exception_class_name = exception.present? ? exception.class.to_s : "None"
         @exception_message =    message_string || exception.try(:message)
         @backtrace =            prepare_backtrace(exception)
-        @param_values =         params
+        @param_values =         scrubbed_params(params)
         @experiencer_id =       params.try(:[], :user).try(:id)
         @experiencer_type =     params.try(:[], :user).try(:class).try(:name)
       end
@@ -56,12 +56,13 @@ module Errdo
         exception.try(:backtrace) || caller.reject { |n| n =~ %r{\/lib\/errdo} } # Default to showing the call stack
       end
 
-      def scrubbed_params(request)
-        params = request.try(:params)
+      def scrubbed_params(params)
+        return if params.nil?
+        params = params.with_indifferent_access
         Errdo.dirty_words.each do |word|
           params[word] = "..." if params[word]
         end
-        params
+        params.symbolize_keys
       end
 
     end

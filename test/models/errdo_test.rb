@@ -76,6 +76,12 @@ class ErrdoTest < ActiveSupport::TestCase
 
         assert_equal occ.param_values, user: User.first, data: "Here's some data"
       end
+
+      should "create an error and scrub the params" do
+        Errdo.log("Cool beans2", password: "password")
+        occ = Errdo::ErrorOccurrence.last
+        assert_equal "...", occ.param_values[:password]
+      end
     end
   end
 
