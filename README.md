@@ -14,7 +14,8 @@ Big thanks to the contributors to the rails admin and devise gems, whose beautif
 
 To the good part.
 
-WARN: If you're updating from 0.10.0 to 0.11.0, it's a breaking change. You will have to either run `rails generate errdo:install` again, resetting the errors table to incorporate new fields, or add the field `importance`, type `string` to your error model with a migration:
+> If you're updating from 0.10.0 to 0.11.0, it's a breaking change. You will have to either run `rails generate errdo:install` again, resetting the errors table to incorporate new fields, or add the field `importance`, type `string` to your error model with a migration:
+
 ```
 def change
   add_column :errors, :importance, :string, default: 'error'
