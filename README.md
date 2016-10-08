@@ -14,6 +14,13 @@ Big thanks to the contributors to the rails admin and devise gems, whose beautif
 
 To the good part.
 
+WARN: If you're updating from 0.10.0 to 0.11.0, it's a breaking change. You will have to either run `rails generate errdo:install` again, resetting the errors table to incorporate new fields, or add the field `importance`, type `string` to your error model with a migration:
+```
+def change
+  add_column :errors, :importance, :string, default: 'error'
+end
+```
+
 ## Quickstart Guide
 
 Put `gem 'errdo'` in your Gemfile and run `bundle install`
@@ -102,6 +109,31 @@ Errdo.notify_with slack: {  webhook: "WEBHOOK-URL",
 You can set a custom slack emoji icon and name for the bot that posts in your channel. See the initializer for more information.
 
 In the future, more keys will be added to this hash for more integrations. Working on it!
+
+
+## Manual logging
+There are cases in every app when things that go wrong are caught before they percolate up to the user.
+In these cases, it's helpful to have a way to manually log errors.
+
+```
+if @user.update(params)
+  flash[:success] = t(:success)
+else
+  flash[:error] = t(:error)
+  Errdo.warn(params)
+end
+
+The logging methods are:
+1. ```Errdo.log(exception, string, params)```
+to log to database only with importance level of 'info'
+2. ```Errdo.notify(exception, string, params)```
+to send notifications only
+3. ```Errdo.warn(exception, string, params)```
+to send notifications and log, with an importance level of 'warning'
+4. ```Errdo.error(exception, string, params)```
+to send notifications and log, with an importance level of 'error'
+
+The last exception, string, and hash as method parameters will be logged along with the error.
 
 ## Sanitization
 By default, the words
