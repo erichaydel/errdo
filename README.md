@@ -166,6 +166,13 @@ I'm doing this project as a fun side project, so I'm trying to make the code as 
 ### *Suggestions*
 If you think of something cool that you would use in your app, let me know on github preferably, even if you don't want to work on it! I'm always open to new ideas.
 
+## Versioning
+I'm using [Semantic Versioning](http://semver.org/).
+That being said, this gem is currently in beta stage (0 as the major release). Because of this, many of the changes in minor version (The middle number) will be breaking changes. These should become a lot less frequent, but the core functionality is still sort of being figured out. I will be including in the README specific instructions on how to upgrade each minor beta version, so make sure to check here if something breaks.
+
+Also, I'll be answering any question I get on the issues page, or any email.
+Until the first major release (1.0.0), please pardon my dust!
+
 ## Future things I want to do
 1. More notification integrations
 2. Be able to create rules about when a notification is delivered (For example, maybe users identified as admins don't create notifications)
