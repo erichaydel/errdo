@@ -122,16 +122,14 @@ else
   flash[:error] = t(:error)
   Errdo.warn(params)
 end
+```
 
 The logging methods are:
-1. ```Errdo.log(exception, string, params)```
-to log to database only with importance level of 'info'
-2. ```Errdo.notify(exception, string, params)```
-to send notifications only
-3. ```Errdo.warn(exception, string, params)```
-to send notifications and log, with an importance level of 'warning'
-4. ```Errdo.error(exception, string, params)```
-to send notifications and log, with an importance level of 'error'
+
+1. `Errdo.log(exception, string, params)`to log to database only with importance level of 'info'
+2. `Errdo.notify(exception, string, params)`to send notifications only
+3. `Errdo.warn(exception, string, params)`to send notifications and log, with an importance level of 'warning'
+4. `Errdo.error(exception, string, params)`to send notifications and log, with an importance level of 'error'
 
 The last exception, string, and hash as method parameters will be logged along with the error.
 
