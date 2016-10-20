@@ -112,7 +112,7 @@ You can set a custom slack emoji icon and name for the bot that posts in your ch
 In the future, more keys will be added to this hash for more integrations. Working on it!
 
 
-## Manual logging
+## Manual Logging
 There are cases in every app when things that go wrong are caught before they percolate up to the user.
 In these cases, it's helpful to have a way to manually log errors.
 
@@ -133,6 +133,17 @@ The logging methods are:
 4. `Errdo.error(exception, string, params)`to send notifications and log, with an importance level of 'error'
 
 The last exception, string, and hash as method parameters will be logged along with the error.
+
+## Non Web Requests
+
+Errdo has the default ability to log exceptions in rake tasks.
+If you don't want this functionality, set
+
+`Errdo.log_task_exceptions = false`
+
+in the `errdo.rb` initializer.
+
+ActiveJobs support coming soon!
 
 ## Sanitization
 By default, the words

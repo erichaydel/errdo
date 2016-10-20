@@ -3,6 +3,8 @@ require 'errdo/extension'
 require 'errdo/extensions/cancancan'
 require 'errdo/notifications/slack'
 
+require 'errdo/rake/task' if defined?(Rake::Task)
+
 module Errdo
   # A lot of this authorization/authentication code was heavily inspired by Rails Admin gem, which is a great gem
   # https://github.com/sferik/rails_admin
@@ -29,6 +31,10 @@ module Errdo
 
   mattr_accessor :dirty_words
   @@dirty_words = %w(password passwd password_confirmation secret confirm_password secret_token)
+
+  # This determines whether a task that fails will log an exception
+  mattr_accessor :log_task_exceptions
+  @@log_task_exceptions = true
   # rubocop:enable Style/ClassVars
 
   # == Authentication ==
