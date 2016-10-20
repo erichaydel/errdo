@@ -4,7 +4,7 @@ Errdo.setup do |config|
   # So make sure you add on, not replace!
   # Errdo.dirty_words += ["custom_param"]
 
-  ## == Authorization and Devise integration ==================
+  ## == Authorization and Devise integration =========
   # If you have the ability to track who's logged in, setting the current_user_method
   # will allow the logged-in user to be recorded with the error
   # config.current_user_method = :current_user
@@ -13,7 +13,7 @@ Errdo.setup do |config|
   #   warden.authenticate! scope: :user
   # end
 
-  ## == Authorization =======================
+  ## == Authorization ================================
   # Setup authorization to be run as a before filter
   # This is run inside the controller instance so you can setup any authorization you need to.
   # By default, there is no authorization.
@@ -45,6 +45,10 @@ Errdo.setup do |config|
   #                               channel: nil
   #                               icon: ":boom:",
   #                               name: "Errdo-bot" }
-
   # For now, slack is the only integration. More coming soon!
+
+  ## == Non Web Requests ============================
+  # Error logging for rake tasks is on by default. To turn it off, set
+  # Errdo.log_task_exceptions = false
+
 end
