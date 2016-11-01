@@ -1,6 +1,6 @@
 # Errdo
 [![Gem Version](https://badge.fury.io/rb/errdo.svg)](https://badge.fury.io/rb/errdo)
-![master build](https://travis-ci.org/erichaydel/errdo.svg?branch=master)
+[![master build](https://travis-ci.org/erichaydel/errdo.svg?branch=master)](https://travis-ci.org/erichaydel/errdo)
 [![Code Climate](https://codeclimate.com/github/erichaydel/errdo/badges/gpa.svg)](https://codeclimate.com/github/erichaydel/errdo)
 [![Test Coverage](https://codeclimate.com/github/erichaydel/errdo/badges/coverage.svg)](https://codeclimate.com/github/erichaydel/errdo/coverage)
 
