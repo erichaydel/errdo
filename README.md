@@ -6,7 +6,7 @@
 
 Because sometimes your users get ERRors, and you want to DO something about it.
 
-This gem is meant to be an simple all-in-one error solution for your rails application. It's an alternative to the complications of installing multiple gems to track, record, and notify yourself of errors that your users encounter. (Or paying for a big solution when you only want something simple.)
+This gem is meant to be an simple all-in-one error solution that's embedded right into your rails application. It's an alternative to the complications of installing multiple gems to track, record, and notify yourself of errors that your users encounter. (Or paying for a big solution when you only want something simple.)
 
 I'm a big believer that every single app with a production server, whether it has users or not, should have some way to track errors. It leads to better code and can prevent a critical error from causing a mass exodus of users (something I have personal experience with).
 
