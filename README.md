@@ -143,7 +143,7 @@ If you don't want this functionality, set
 
 in the `errdo.rb` initializer.
 
-ActiveJobs support coming soon!
+ActiveJobs are supported with no extra effort.
 
 ## Sanitization
 By default, the words
@@ -185,11 +185,6 @@ That being said, this gem is currently in beta stage (0 as the major release). B
 Also, I'll be answering any question I get on the issues page, or any email.
 Until the first major release (1.0.0), please pardon my dust!
 
-## Future things I want to do
-1. More notification integrations
-2. Be able to create rules about when a notification is delivered (For example, maybe users identified as admins don't create notifications)
-3. Customizable index page
-4. Backtrace silencer integration
-5. Better index page with more stats
+
 
 This project rocks and uses MIT-LICENSE.
