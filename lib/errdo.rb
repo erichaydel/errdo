@@ -5,6 +5,12 @@ require 'errdo/notifications/slack'
 
 require 'errdo/rake/task' if defined?(Rake::Task)
 
+ActiveSupport.on_load(:active_job) do
+  # Reports exceptions occurring in ActiveJob jobs.
+  require 'errdo/active_job'
+  include Errdo::ActiveJob
+end
+
 module Errdo
   # A lot of this authorization/authentication code was heavily inspired by Rails Admin gem, which is a great gem
   # https://github.com/sferik/rails_admin
