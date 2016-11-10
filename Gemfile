@@ -12,6 +12,7 @@ gemspec
 
 # To use a debugger
 gem "codeclimate-test-reporter", group: :test, require: nil
+gem "appraisal"
 
 group :development, :test do
   gem 'pry'

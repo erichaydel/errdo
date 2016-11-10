@@ -38,7 +38,7 @@ class ErrorTest < ActiveSupport::TestCase
     end
 
     should "have counter cache for occurrences" do
-      assert_difference '@error.occurrence_count', 1 do
+      assert_difference '@error.reload.occurrence_count', 1 do
         @error.error_occurrences.create
       end
     end
@@ -46,7 +46,7 @@ class ErrorTest < ActiveSupport::TestCase
     should "set the last experiencer to the last occurrence's user" do
       @occ1 = @error.error_occurrences.create(experiencer: users(:user))
       @occ2 = @error.error_occurrences.create(experiencer: users(:user2))
-      assert_equal @occ2.experiencer, @error.last_experiencer
+      assert_equal @occ2.reload.experiencer, @error.reload.last_experiencer
     end
   end
 
