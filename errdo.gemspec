@@ -17,9 +17,10 @@ Gem::Specification.new do |s|
   s.files = Dir['{app,config,db,lib}/**/*', 'MIT-LICENSE', 'Rakefile', 'README.rdoc']
   s.test_files = Dir['test/**/*']
 
-  s.add_dependency 'rails', '~> 4.2.6'
+  s.add_dependency 'rails', '>= 4.1.0'
   s.add_dependency 'slim-rails', '>= 3.0'
   s.add_dependency 'bootstrap-sass', '>= 3.0'
+  s.add_dependency 'sprockets-rails', '>= 2.2'
   s.add_dependency 'sass-rails', '>= 3.2'
   s.add_dependency 'kaminari', '~> 0.14'
   s.add_dependency 'slack-notifier'

@@ -7,7 +7,7 @@ class ErrorsIntegrationTest < ActionDispatch::IntegrationTest
   end
 
   should "render a 404 error page" do
-    get "#{root_path}/not-a-path"
+    get "/not-a-path"
     assert_equal 404, @response.status
   end
 

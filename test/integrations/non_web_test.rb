@@ -1,13 +1,16 @@
 require 'test_helper'
 
-class FailJob < ActiveJob::Base
 
-  queue_as :default
+if defined?(ActiveJob::Base)
+  class FailJob < ActiveJob::Base
 
-  def perform(*_args)
-    raise "AsynchronousFailure"
+    queue_as :default
+
+    def perform(*_args)
+      raise "AsynchronousFailure"
+    end
+
   end
-
 end
 
 class NonWebTest < ActionDispatch::IntegrationTest
@@ -52,11 +55,13 @@ class NonWebTest < ActionDispatch::IntegrationTest
   # rubocop:enable Style/RescueModifier
   # rubocop:enable Lint/HandleExceptions
 
-  context "active jobs" do
-    should "log to errdo when job fails asynchronously" do
-      assert_difference 'Errdo::ErrorOccurrence.count', 1 do
-        # rubocop:disable Style/RescueModifier
-        FailJob.perform_now rescue ""
+  if defined?(ActiveJob::Base)
+    context "active jobs" do
+      should "log to errdo when job fails asynchronously" do
+        assert_difference 'Errdo::ErrorOccurrence.count', 1 do
+          # rubocop:disable Style/RescueModifier
+          FailJob.perform_now rescue ""
+        end
       end
     end
   end

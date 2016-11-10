@@ -3,6 +3,10 @@ language: ruby
 rvm:
   - 2.3.0
 
+gemfile:
+  - gemfiles/rails_4.1.gemfile
+  - gemfiles/rails_4.2.gemfile
+
 addons:
     code_climate:
         repo_token: a30f207d6ca699991edc95ac41c1ff257125c1f5de9343a21edee96c9b65ff73
