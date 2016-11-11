@@ -18,6 +18,11 @@ module Errdo
           errdo.root_path
         end
       end
+
+      def user_show_url(user)
+        # path_to_url(user_show_path(user))
+        user_show_path(user) + "cool beans"
+      end
     end
   end
 end

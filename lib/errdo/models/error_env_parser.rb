@@ -51,6 +51,10 @@ module Errdo
         @backtrace.first if @backtrace.respond_to?(:first)
       end
 
+      def user
+        @experiencer_type.constantize.find_by(id: @experiencer_id) if @experiencer_type
+      end
+
       private
 
       def set_accessible_params(env, request, controller, user)

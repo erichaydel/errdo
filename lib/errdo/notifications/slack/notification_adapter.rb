@@ -1,12 +1,6 @@
 require 'slack-notifier'
 require_relative '../../helpers/views_helper.rb'
 
-class NoOpHTTPClient
-  def self.post uri, params={}
-    binding.pry
-  end
-end
-
 module Errdo
   module Notifications
     module Slack
@@ -19,17 +13,15 @@ module Errdo
                                                   channel: options[:channel] || nil,
                                                   icon_emoji: options[:icon] || ':boom:',
                                                   username: options[:name] || 'Errdo-bot'
-                                                  # http_client: NoOpHTTPClient
         end
 
         def notify(parser)
           messager = SlackMessager.new(parser)
-          # begin
-          p "ASDFASDFASDFASDFASDFASDF2"
-          @slack_notifier.ping(*messager.message)
-          # rescue => e
-          # Rails.logger.error e
-          # end
+          begin
+            @slack_notifier.ping(*messager.message)
+          rescue => e
+            Rails.logger.error e
+          end
         end
 
       end
@@ -62,14 +54,13 @@ module Errdo
           @exception_name || 'None'
         end
 
-        def user_string
-          @user.send(Errdo.user_show_method) if Errdo.user_show_method
-        end
-
         def additional_fields
           fields = [{ title: "Backtrace",
                       value: @backtrace.to_s }]
-          fields += { title: "User Affected", value: user_string } if @user
+          if @user
+            fields += [{ title: "User Affected",
+                         value: user_show_string(@user) }]
+          end
           return fields
         end
 
