@@ -1,14 +1,13 @@
 PATH
   remote: .
   specs:
-    errdo (0.11.2)
+    errdo (0.11.3)
       bootstrap-sass (>= 3.0)
       kaminari (~> 0.14)
       rails (>= 4.1.0)
       sass-rails (>= 3.2)
       slack-notifier
       slim-rails (>= 3.0)
-      sprockets-rails (>= 2.2)
 
 GEM
   remote: https://rubygems.org/

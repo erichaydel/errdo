@@ -16,5 +16,5 @@ Errdo.setup do |config|
   #
   config.error_name = :errors
 
-  # config.notify_with slack: { webhook: "https://hooks.slack.com/services/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" }
+  config.notify_with slack: { webhook: "https://hooks.slack.com/services/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" }
 end

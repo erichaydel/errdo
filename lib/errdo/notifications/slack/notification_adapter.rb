@@ -1,6 +1,12 @@
 require 'slack-notifier'
 require_relative '../../helpers/views_helper.rb'
 
+class NoOpHTTPClient
+  def self.post uri, params={}
+    binding.pry
+  end
+end
+
 module Errdo
   module Notifications
     module Slack
@@ -13,15 +19,17 @@ module Errdo
                                                   channel: options[:channel] || nil,
                                                   icon_emoji: options[:icon] || ':boom:',
                                                   username: options[:name] || 'Errdo-bot'
+                                                  # http_client: NoOpHTTPClient
         end
 
         def notify(parser)
           messager = SlackMessager.new(parser)
-          begin
-            @slack_notifier.ping messager.message
-          rescue => e
-            Rails.logger.error e
-          end
+          # begin
+          p "ASDFASDFASDFASDFASDFASDF2"
+          @slack_notifier.ping(*messager.message)
+          # rescue => e
+          # Rails.logger.error e
+          # end
         end
 
       end
@@ -29,6 +37,7 @@ module Errdo
       class SlackMessager
 
         include Errdo::Helpers::ViewsHelper # For the naming of the user in the message
+        include Errdo::Engine.routes.url_helpers
 
         def initialize(parser)
           @user = parser.user
@@ -38,17 +47,30 @@ module Errdo
         end
 
         def message
-          "#{exception_string}#{user_message_addon}\n#{@backtrace}"
+          [exception_string, attachments:
+                                [
+                                  title: @exception_message,
+                                  title_link: error_url(Errdo::ErrorOccurrence.last.error),
+                                  fields: additional_fields,
+                                  color: "#36a64f"
+                                ]]
         end
 
         private
 
         def exception_string
-          "#{@exception_name || 'None'} | #{@exception_message}"
+          @exception_name || 'None'
         end
 
-        def user_message_addon
-          "\nExperienced by #{user_show_string(@user)} " if @user
+        def user_string
+          @user.send(Errdo.user_show_method) if Errdo.user_show_method
+        end
+
+        def additional_fields
+          fields = [{ title: "Backtrace",
+                      value: @backtrace.to_s }]
+          fields += { title: "User Affected", value: user_string } if @user
+          return fields
         end
 
       end
