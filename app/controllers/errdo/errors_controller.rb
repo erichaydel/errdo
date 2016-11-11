@@ -9,7 +9,7 @@ module Errdo
     before_action :authorize_user
 
     def index
-      @errors = Errdo::Error.order(last_occurred_at: :desc).page params[:page]
+      @errors = Errdo::Error.order(last_occurred_at: :desc).includes(:last_experiencer).page params[:page]
     end
 
     def show
