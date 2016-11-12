@@ -2,7 +2,7 @@ module Errdo
   module Models
     class ErrorEnvParser
 
-      attr_accessor :user, :exception_class_name, :exception_message, :http_method,
+      attr_accessor :exception_class_name, :exception_message, :http_method,
                     :host_name, :url, :backtrace, :ip, :user_agent, :referer,
                     :query_string, :param_values, :cookie_values, :header_values,
                     :experiencer_id, :experiencer_type
@@ -52,12 +52,12 @@ module Errdo
       end
 
       def user
-        @experiencer_type.constantize.find_by(id: @experiencer_id) if @experiencer_type
+        @experiencer_type.constantize.find_by(id: @experiencer_id) if @experiencer_type && Errdo.error_name
       end
 
       private
 
-      def set_accessible_params(env, request, controller, user)
+      def set_accessible_params(env, request, controller, new_user)
         @exception_class_name = env["action_dispatch.exception"].class.to_s
         @exception_message =    env["action_dispatch.exception"].try(:message)
         @http_method =          request.try(:request_method)
@@ -71,8 +71,8 @@ module Errdo
         @param_values =         scrubbed_params(request)
         @cookie_values =        request.try(:cookies)
         @header_values =        controller.try(:headers)
-        @experiencer_id =       user.try(:id)
-        @experiencer_type =     user.try(:class).try(:name)
+        @experiencer_id =       new_user.try(:id)
+        @experiencer_type =     new_user.try(:class).try(:name)
       end
 
       def prepare_backtrace(env)

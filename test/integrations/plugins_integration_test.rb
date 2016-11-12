@@ -27,8 +27,8 @@ class PluginsIntegrationTest < ActionDispatch::IntegrationTest
       Errdo.error_name = nil
       stub_request :any, /.*slack.*/
       get static_generic_error_path
-      assert_requested :any, /.*slack.*/
       Errdo.error_name = :errors
+      assert_requested :any, /.*slack.*/
     end
 
     should "not fail when the slack ping returns an error" do
@@ -39,6 +39,7 @@ class PluginsIntegrationTest < ActionDispatch::IntegrationTest
   end
 
   teardown do
+    Errdo.error_name = :errors
     Errdo.instance_variable_set(:@notifiers, [])
   end
 

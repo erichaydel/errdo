@@ -29,7 +29,7 @@ module Errdo
       class SlackMessager
 
         include Errdo::Helpers::ViewsHelper # For the naming of the user in the message
-        include Errdo::Engine.routes.url_helpers
+        # include Errdo::Engine.routes.url_helpers
 
         def initialize(parser)
           @user = parser.user
@@ -39,10 +39,12 @@ module Errdo
         end
 
         def message
+          url_helpers = Errdo::Engine.routes.url_helpers
+          last_error_url = url_helpers.error_url(Errdo::ErrorOccurrence.last.error) if Errdo.error_name
           [exception_string, attachments:
                                 [
                                   title: @exception_message,
-                                  title_link: error_url(Errdo::ErrorOccurrence.last.error),
+                                  title_link: last_error_url,
                                   fields: additional_fields,
                                   color: "#36a64f"
                                 ]]
