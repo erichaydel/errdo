@@ -14,7 +14,7 @@ class ErrdoTest < ActiveSupport::TestCase
         Errdo.instance_variable_set(:@notifiers, [])
       end
 
-      should "create an error and send notification with Errdo.warn" do
+      should "create an error and send notification with Errdo.error" do
         assert_difference 'Errdo::Error.count', 1 do
           begin
             raise "error stuff"
@@ -25,28 +25,28 @@ class ErrdoTest < ActiveSupport::TestCase
         assert_requested :any, /.*slack.*/
       end
 
-      should "create an error and send notification with Errdo.warn even when nothing is set" do
+      should "create an error and send notification with Errdo.error even when nothing is set" do
         assert_difference 'Errdo::Error.count', 1 do
           Errdo.error
         end
         assert_requested :any, /.*slack.*/
       end
 
-      should "create an error and send notification with Errdo.warning" do
+      should "create an error and send notification with Errdo.warn" do
         assert_difference 'Errdo::Error.count', 1 do
           Errdo.warn
         end
         assert_requested :any, /.*slack.*/
       end
 
-      should "not create an error, but should send notification with Errdo.log" do
+      should "not create an error, but should send notification with Errdo.notify" do
         assert_difference 'Errdo::Error.count', 0 do
           Errdo.notify
         end
         assert_requested :any, /.*slack.*/
       end
 
-      should "create an error, but should not send notification with Errdo.info" do
+      should "create an error, but should not send notification with Errdo.log" do
         assert_difference 'Errdo::Error.count', 1 do
           Errdo.log
         end

@@ -29,7 +29,6 @@ module Errdo
       class SlackMessager
 
         include Errdo::Helpers::ViewsHelper # For the naming of the user in the message
-        # include Errdo::Engine.routes.url_helpers
 
         def initialize(parser)
           @user = parser.user
