@@ -41,7 +41,7 @@ class ErrdoTest < ActiveSupport::TestCase
 
       should "not create an error, but should send notification with Errdo.notify" do
         assert_difference 'Errdo::Error.count', 0 do
-          Errdo.notify
+          Errdo.notify("Error happened")
         end
         assert_requested :any, /.*slack.*/
       end
