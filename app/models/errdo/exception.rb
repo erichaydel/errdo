@@ -4,9 +4,11 @@ module Errdo
     def initialize(env)
       user_parser = Errdo::Models::UserParser.new(env)
       @env_parser = Errdo::Models::ErrorEnvParser.new(env, user_parser)
-      create_errors(@env_parser) unless Errdo.error_name.blank?
+
+      error = nil
+      error = create_errors(@env_parser) unless Errdo.error_name.blank?
       Errdo.notify_with.each do |notifier|
-        notifier.notify(@env_parser)
+        notifier.notify(@env_parser, error: error)
       end
     end
 
@@ -15,6 +17,7 @@ module Errdo
     def create_errors(parser)
       error = Errdo::Error.find_or_create(parser.error_hash)
       error.try(:error_occurrences).try(:create, parser.error_occurrence_hash)
+      return error
     end
 
   end

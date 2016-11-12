@@ -123,14 +123,14 @@ module Errdo
 
   # Logs the error to the database as a warning
   def self.warn(*args)
-    Errdo::Logger.new('warning', *args).log
-    Errdo::Notifier.new(*args).notify
+    error = Errdo::Logger.new('warning', *args).log
+    Errdo::Notifier.new(*args, error: error).notify
   end
 
   # Logs the error to the database and notifies the user
   def self.error(*args)
-    Errdo::Logger.new('error', *args).log
-    Errdo::Notifier.new(*args).notify
+    error = Errdo::Logger.new('error', *args).log
+    Errdo::Notifier.new(*args, error: error).notify
   end
 
   def self.setup

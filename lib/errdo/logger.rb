@@ -12,6 +12,7 @@ module Errdo
     def log
       error = Errdo::Error.find_or_create(**@parser.error_hash, importance: @importance)
       error.try(:error_occurrences).try(:create, @parser.error_occurrence_hash)
+      return error
     end
 
   end
