@@ -1,6 +1,46 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+.errdo-status {
+    display: block;
+    height: 20px;
+    width: 4.5em;
+    line-height: 12px;
+
+    background-color: green;
+    color: white;
+    text-align: center;
+    margin-top: 1px;
+    padding-top: 4px;
+
+    float: right;
+}
+
+.errdo-active {
+  @extend .errdo-status;
+
+  background-color: #e74c3c;
+}
+
+.errdo-resolved {
+  @extend .errdo-status;
+
+  background-color: #2ecc71;
+}
+
+.errdo-wontfix {
+  @extend .errdo-status;
+
+  background-color: #f1c40f;
+}
+
+
+.status-column {
+  max-width: 0.5em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: right;
+}
 
 .time-column {
   max-width: 1em;
@@ -9,7 +49,7 @@
 }
 
 .user-column {
-  max-width: 1em;
+  max-width: 1.2em;
   text-overflow: ellipsis;
 }
 
