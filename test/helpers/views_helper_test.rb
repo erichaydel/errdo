@@ -20,10 +20,10 @@ class ViewsHelperTest < ActionView::TestCase
     end
 
     context "user_show_path" do
-      should "default to errdo.root_path when nothing set" do
+      should "default to nil when nothing set" do
         @user = users(:user)
         Errdo.stub :user_show_path, nil do
-          assert_equal errdo.root_path, user_show_path(@user)
+          assert_nil user_show_path(@user)
         end
       end
 
