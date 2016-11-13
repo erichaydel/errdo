@@ -18,6 +18,7 @@
             th.class-column Class Name
             th.message-column Message
             th.count-column Count
+            th.status-column Status
         tbody
           - @errors.each do |error|
             tr.errdo
@@ -35,6 +36,9 @@
                 = link_to error.exception_message, error, class: "errdo"
               td.errdo.count-column
                 = link_to error.occurrence_count, error, class: "errdo"
+              td.errdo.status-column
+                span class="errdo-#{error.status}"
+                  = error.status
 
       .row
         .col-md-6 = paginate(@errors,remote: true)
