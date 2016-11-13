@@ -14,8 +14,6 @@ module Errdo
       def user_show_path(user)
         if Errdo.user_show_path && user
           Rails.application.routes.url_helpers.send(Errdo.user_show_path, user)
-        else
-          errdo.root_path
         end
       end
 
