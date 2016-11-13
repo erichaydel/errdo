@@ -28,8 +28,12 @@
       div = @error.exception_message
 
       h3 Experiencer
-      div = link_to user_show_string(@occurrence.experiencer),
+      div
+        - if user_show_path(@occurrence.experiencer)
+          = link_to user_show_string(@occurrence.experiencer),
             user_show_path(@occurrence.experiencer), class: "errdo"
+        - else
+          = user_show_string(@occurrence.experiencer)
 
       h3 Backtrace
       .errdo-backtrace-box
