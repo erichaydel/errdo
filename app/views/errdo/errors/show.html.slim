@@ -18,8 +18,11 @@
 
     .col-md-7
 
-      h3 Time Occurred
+      h3 Occurrence Time
       div = @occurrence.created_at
+
+      h3 Number of times this error occurred
+      = @error.occurrence_count
 
       h3 Exception Class
       div = @error.exception_class_name
@@ -34,6 +37,9 @@
             user_show_path(@occurrence.experiencer), class: "errdo"
         - else
           = user_show_string(@occurrence.experiencer)
+
+      h3 Param Values
+      div = @occurrence.param_values
 
       h3 Backtrace
       .errdo-backtrace-box
@@ -50,9 +56,6 @@
       h3 Referer
       div = @occurrence.referer || "None"
 
-      h3 Param Values
-      div = @occurrence.param_values
-
       h3 Cookie Values
       .errdo-backtrace-box
         = @occurrence.cookie_values
@@ -65,9 +68,6 @@
 
       h3 Requested URL
       div = @error.url
-
-      h3 Times occurred
-      = @error.occurrence_count
 
       br
       br
