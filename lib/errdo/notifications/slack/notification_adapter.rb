@@ -46,7 +46,7 @@ module Errdo
                                   title: @exception_message,
                                   title_link: error_url,
                                   fields: additional_fields,
-                                  color: "#36a64f"
+                                  color: "#FF0E00"
                                 ]]
         end
 
