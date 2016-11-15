@@ -91,6 +91,20 @@ class ErrorsIntegrationTest < ActionDispatch::IntegrationTest
       get static_generic_error_path
       assert_equal users(:user), Errdo::ErrorOccurrence.last.experiencer
     end
+
+    should "make an error if log404 is set and 404 is hit" do
+      Errdo.log404 = true
+      assert_difference 'Errdo::ErrorOccurrence.count', 1 do
+        get "/not-a-path"
+      end
+    end
+
+    should "not make an error if log404 is not set and 404 is hit" do
+      Errdo.log404 = false
+      assert_difference 'Errdo::ErrorOccurrence.count', 0 do
+        get "/not-a-path"
+      end
+    end
   end
 
   private

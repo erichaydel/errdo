@@ -2,7 +2,10 @@ Errdo.setup do |config|
   # Add words to be scrubbed from the params here. By default, this is
   # %w(password passwd password_confirmation secret confirm_password secret_token)
   # So make sure you add on, not replace!
-  # Errdo.dirty_words += ["custom_param"]
+  # config.dirty_words += ["custom_param"]
+
+  # By default, 404 errors are ignored. To un-ignore them, set this to true
+  # config.log404 = true
 
   ## == Authorization and Devise integration =========
   # If you have the ability to track who's logged in, setting the current_user_method
@@ -50,5 +53,4 @@ Errdo.setup do |config|
   ## == Non Web Requests ============================
   # Error logging for rake tasks is on by default. To turn it off, set
   # Errdo.log_task_exceptions = false
-
 end

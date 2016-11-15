@@ -41,6 +41,9 @@ module Errdo
   # This determines whether a task that fails will log an exception
   mattr_accessor :log_task_exceptions
   @@log_task_exceptions = true
+
+  mattr_accessor :log404
+  @@log404 = false
   # rubocop:enable Style/ClassVars
 
   # == Authentication ==
