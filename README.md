@@ -103,7 +103,7 @@ in configurations press add configuration
 
 Now, set a hash of all your slack values
 ```
-Errdo.notify_with slack: {  webhook: "WEBHOOK-URL",
+config.notify_with slack: {  webhook: "WEBHOOK-URL",
                             icon: ":boom:",
                             channel: "#general"}
 ```
@@ -140,7 +140,7 @@ The last exception, string, and hash as method parameters will be logged along w
 Errdo has the default ability to log exceptions in rake tasks.
 If you don't want this functionality, set
 
-`Errdo.log_task_exceptions = false`
+`config.log_task_exceptions = false`
 
 in the `errdo.rb` initializer.
 
@@ -156,9 +156,16 @@ confirm_password
 secret_token`
  are all scrubbed from the params before storing the error in the database. If you need something else scrubbed, you can customize this list of params in the initializer
 
- `Errdo.dirty_words += ["custom_param"]`
+ `config.dirty_words += ["custom_param"]`
 
 Notice the `+=` instead of just `=`
+
+## Miscellaneous
+By default, 404 errors are logged and notified. To turn this off, set
+
+`config.log404 = true`
+
+in the initializer.
 
 ## Contributing
 

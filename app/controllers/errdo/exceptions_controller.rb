@@ -14,7 +14,7 @@ module Errdo
       body         = {  status: status,
                         error: Rack::Utils::HTTP_STATUS_CODES.fetch(status.to_i, Rack::Utils::HTTP_STATUS_CODES[500]) }
 
-      Errdo::Exception.new(env)
+      Errdo::Exception.new(env) if Errdo.log404 || status.to_i != 404
       render(status, content_type, body)
     end
 
