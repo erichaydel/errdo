@@ -1,11 +1,11 @@
 class ErrdoCreate<%= table_name.camelize %> < ActiveRecord::Migration<%= migration_version %>
   def change
     create_table :<%= table_name %> do |t|
-      t.string :exception_class_name
-      t.string :exception_message
+      t.text :exception_class_name
+      t.text :exception_message
       t.string :http_method
-      t.string :host_name
-      t.string :url
+      t.text :host_name
+      t.text :url
 
       t.text :backtrace
 
@@ -33,9 +33,9 @@ class ErrdoCreate<%= table_name.camelize %> < ActiveRecord::Migration<%= migrati
       t.integer :experiencer_id
 
       t.string :ip
-      t.string :user_agent
+      t.text :user_agent
       t.string :referer
-      t.string :query_string
+      t.text :query_string
       t.text :form_values
       t.text :param_values
       t.text :cookie_values
