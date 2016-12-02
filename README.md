@@ -22,7 +22,7 @@ def change
 end
 ```
 
-> If you're updating from 0.11.x to 0.12.0, it's a breaking change. You will have to either run `rails generate errdo:install` again, resetting the errors table to incorporate new fields, or change over the fields
+> If you're updating from 0.11.x to 0.12.x, it's a breaking change. You will have to either run `rails generate errdo:install` again, resetting the errors table to incorporate new fields, or change over the fields
 ```
 def up
     change_column :errors, :exception_class_name, :text
@@ -186,6 +186,11 @@ By default, 404 errors are logged and notified. To turn this off, set
 `config.log404 = true`
 
 in the initializer.
+
+By default, errors are ignored (for notification only) if they happen within 5 minutes of the last identical error.
+This can be changed by setting
+
+`config.ignore_time = 5.minutes`
 
 ## Contributing
 

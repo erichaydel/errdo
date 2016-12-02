@@ -7,6 +7,11 @@ Errdo.setup do |config|
   # By default, 404 errors are ignored. To un-ignore them, set this to true
   # config.log404 = true
 
+  # By default, errors are ignored (for notification only) if they happen
+  # within 5 minutes of the last identical error.
+  # This can be changed by setting
+  # config.ignore_time = 5.minutes
+
   ## == Authorization and Devise integration =========
   # If you have the ability to track who's logged in, setting the current_user_method
   # will allow the logged-in user to be recorded with the error
@@ -44,7 +49,7 @@ Errdo.setup do |config|
   # If you want to set up slack, this is the only required parameter.
   # The rest are totally optional, and default to the values here
   #
-  #   Errdo.notify_with slack: {  webhook: "WEBHOOK-URL",
+  #   config.notify_with slack: {  webhook: "WEBHOOK-URL",
   #                               channel: nil
   #                               icon: ":boom:",
   #                               name: "Errdo-bot" }
@@ -52,5 +57,5 @@ Errdo.setup do |config|
 
   ## == Non Web Requests ============================
   # Error logging for rake tasks is on by default. To turn it off, set
-  # Errdo.log_task_exceptions = false
+  # config.log_task_exceptions = false
 end
