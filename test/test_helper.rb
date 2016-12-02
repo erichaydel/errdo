@@ -42,12 +42,20 @@ class ActionDispatch::IntegrationTest
     Errdo.authorize_with { true }
   end
 
+  teardown do
+    Errdo.instance_variable_set(:@notifiers, [])
+  end
+
 end
 
 class ActionController::TestCase
 
   setup do
     Errdo.authorize_with { true }
+  end
+
+  teardown do
+    Errdo.instance_variable_set(:@notifiers, [])
   end
 
 end

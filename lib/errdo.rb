@@ -44,6 +44,9 @@ module Errdo
 
   mattr_accessor :log404
   @@log404 = false
+
+  mattr_accessor :ignore_time
+  @@ignore_time = 5.minutes
   # rubocop:enable Style/ClassVars
 
   # == Authentication ==

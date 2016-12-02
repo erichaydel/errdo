@@ -105,6 +105,17 @@ class ErrorsIntegrationTest < ActionDispatch::IntegrationTest
         get "/not-a-path"
       end
     end
+
+    should "not notify when the ignore_time is set and the last error occurrence is within that time" do
+      get static_generic_error_path
+
+      Errdo.notify_with slack: { webhook: "https://slack.com/test" }
+      Errdo.ignore_time = 5.minutes
+
+      stub_request :any, /.*slack.*/
+      get static_generic_error_path
+      assert_not_requested :any, /.*slack.*/
+    end
   end
 
   private
