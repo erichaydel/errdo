@@ -17,6 +17,7 @@ module Errdo
     validates :backtrace_hash, uniqueness: true
 
     def self.find_or_create(params)
+      params = clean_backtrace(params)
       unique_string = create_unique_string_from_params(params)
 
       @error = Errdo::Error.find_by(backtrace_hash: unique_string)
@@ -34,6 +35,13 @@ module Errdo
 
     def short_backtrace
       backtrace.first if backtrace.respond_to?(:first)
+    end
+
+    def self.clean_backtrace(params)
+      unless params[:backtrace].empty?
+        params[:backtrace][0] = params[:backtrace][0].gsub(/[_]{1,}[0-9]+/, "")
+      end
+      return params
     end
 
     private

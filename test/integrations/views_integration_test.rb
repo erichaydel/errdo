@@ -24,6 +24,11 @@ class ViewsIntegrationTest < ActionDispatch::IntegrationTest
       get @errdo.error_path(Errdo::Error.last, occurrence_id: Errdo::ErrorOccurrence.last)
       assert_response :success
     end
+
+    should "strip off asset hash" do
+      get static_view_error_path
+      assert_nil Errdo::Error.last.backtrace[0] =~ /[_]{1,}[0-9]+/
+    end
   end
 
 end
