@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get 'static/long_error'
   get 'static/log'
   get 'static/view_error'
+  get 'static/double_render_error'
 
   resources :users
 

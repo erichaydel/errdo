@@ -118,6 +118,17 @@ class ErrorsIntegrationTest < ActionDispatch::IntegrationTest
     end
   end
 
+  context "odd cases" do
+    should "create error when double render error is called" do
+      Errdo.notify_with slack: { webhook: "https://slack.com/test" }
+      stub_request :any, /.*slack.*/
+      assert_difference 'Errdo::ErrorOccurrence.count', 1 do
+        get static_double_render_error_path
+      end
+      assert_requested :any, /.*slack.*/
+    end
+  end
+
   private
 
   def dirty_words

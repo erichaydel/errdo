@@ -15,4 +15,9 @@ class StaticController < ApplicationController
     Errdo.error "This is the error", user: current_user, data: "This is the data"
   end
 
+  def double_render_error
+    render :home
+    render :log
+  end
+
 end
