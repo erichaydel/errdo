@@ -11,22 +11,22 @@ gemspec
 # your gem to rubygems.org.
 
 # To use a debugger
-gem "codeclimate-test-reporter", group: :test, require: nil
 gem "appraisal"
+gem "codeclimate-test-reporter", group: :test, require: nil
 
 group :development, :test do
+  gem 'factory_girl'
   gem 'pry'
   gem 'pry-byebug'
+  gem 'mini_backtrace'
+  gem 'minitest-reporters'
   gem 'shoulda-context'
   gem 'shoulda-matchers', '~> 2.0' # Hasn't been updated to work with new shoulda. Check back.
-  gem 'minitest-reporters'
-  gem 'mini_backtrace'
-  gem 'factory_girl'
   # gem 'guard'
   # gem 'guard-minitest'
-  gem 'simplecov', require: false
-  gem 'devise' # To test logged in user tracking
   gem 'cancancan'
+  gem 'devise' # To test logged in user tracking
+  gem 'simplecov', require: false
 end
 
 group :development do
