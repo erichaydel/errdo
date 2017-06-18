@@ -16,10 +16,10 @@ gem "codeclimate-test-reporter", group: :test, require: nil
 
 group :development, :test do
   gem 'factory_girl'
-  gem 'pry'
-  gem 'pry-byebug'
   gem 'mini_backtrace'
   gem 'minitest-reporters'
+  gem 'pry'
+  gem 'pry-byebug'
   gem 'shoulda-context'
   gem 'shoulda-matchers', '~> 2.0' # Hasn't been updated to work with new shoulda. Check back.
   # gem 'guard'
