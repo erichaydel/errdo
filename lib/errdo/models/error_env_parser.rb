@@ -80,9 +80,13 @@ module Errdo
       end
 
       def scrubbed_params(request)
-        params = request.try(:params)
+        params = request.try(:params) || {}
         Errdo.dirty_words.each do |word|
           params[word] = "..." if params[word]
+        end
+        # Remove all files
+        params.each do |key, value|
+          params[key] = value.headers if value.is_a? ActionDispatch::Http::UploadedFile
         end
         params
       end

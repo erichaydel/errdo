@@ -20,4 +20,8 @@ class StaticController < ApplicationController
     render :log
   end
 
+  def post_error
+    raise "Error"
+  end
+
 end

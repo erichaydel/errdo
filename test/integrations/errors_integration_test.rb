@@ -127,6 +127,14 @@ class ErrorsIntegrationTest < ActionDispatch::IntegrationTest
       end
       assert_requested :any, /.*slack.*/
     end
+
+    should "not throw errors when a file is in the params" do
+      file = Rack::Test::UploadedFile.new(ActionController::TestCase.fixture_path + '/files/error.txt', 'text/plain')
+      post static_post_error_path, file: file
+      @error = Errdo::Error.last
+      @error_occurrence = Errdo::ErrorOccurrence.last
+      @error_occurrence.param_values.to_s
+    end
   end
 
   private
