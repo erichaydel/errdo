@@ -17,6 +17,7 @@ gem "codeclimate-test-reporter", group: :test, require: nil
 group :development, :test do
   gem 'factory_girl'
   gem 'mini_backtrace'
+  gem 'minitest'
   gem 'minitest-reporters'
   gem 'pry'
   gem 'pry-byebug'

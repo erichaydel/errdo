@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   get 'static/home'
   get 'static/generic_error'
   get 'static/long_error'
+  get 'static/deep_error'
   get 'static/log'
   get 'static/view_error'
   get 'static/double_render_error'

@@ -11,6 +11,11 @@ class StaticController < ApplicationController
     raise "e" * 256
   end
 
+  def deep_error
+    eval(params[:code])
+    render :home
+  end
+
   def log
     Errdo.error "This is the error", user: current_user, data: "This is the data"
   end

@@ -28,9 +28,11 @@ module Errdo
 
     # I need a more elegant way to do this
     def self.create_unique_string_from_params(params)
-      params[:backtrace][0].to_s.last(50) +
-        params[:exception_message].to_s.last(20) +
-        params[:exception_class_name].to_s.last(20)
+      Digest::SHA1.hexdigest(
+        params[:backtrace].reject { |l| l[%r{\/ruby-[0-9]\.[0-9]\.[0-9]\/|_test.rb}] }.join("") +
+        params[:exception_message].to_s.gsub(/:0x[0-f]{14}/, "") +
+        params[:exception_class_name].to_s
+      ).to_s
     end
 
     def short_backtrace
@@ -47,9 +49,10 @@ module Errdo
     private
 
     def create_unique_string
-      self.backtrace_hash = backtrace.to_a[0].to_s.last(50) +
-                            exception_message.to_s.last(20) +
-                            exception_class_name.to_s.last(20)
+      self.backtrace_hash =
+        Digest::SHA1.hexdigest(backtrace.to_a.reject { |l| l[%r{\/ruby-[0-9]\.[0-9]\.[0-9]\/|_test.rb}] }.join("") +
+                               exception_message.to_s.gsub(/:0x[0-f]{14}/, "") +
+                               exception_class_name.to_s).to_s
     end
 
   end

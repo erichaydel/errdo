@@ -86,6 +86,15 @@ class ErrorsIntegrationTest < ActionDispatch::IntegrationTest
       assert Errdo::Error.last.backtrace_hash.length <= 255
     end
 
+    should "not combine two similar but different errors" do
+      assert_difference 'Errdo::Error.count', 2 do
+        get static_deep_error_path, code: "asdf"
+        p Errdo::Error.last.exception_message
+        p Errdo::Error.last.exception_message.gsub(/:0x[0-f]{14}/, "")
+        get static_deep_error_path, code: "fdsa"
+      end
+    end
+
     should "make an error with the current user if a user is logged in" do
       _sign_in users(:user)
       get static_generic_error_path
@@ -140,7 +149,7 @@ class ErrorsIntegrationTest < ActionDispatch::IntegrationTest
   private
 
   def dirty_words
-    %w(password passwd password_confirmation secret confirm_password secret_token)
+    %w[password passwd password_confirmation secret confirm_password secret_token]
   end
 
   def http_dirty_params
