@@ -3,10 +3,21 @@ language: ruby
 rvm:
   - 2.3.1
 
+env:
+  global:
+    - CC_TEST_REPORTER_ID=a30f207d6ca699991edc95ac41c1ff257125c1f5de9343a21edee96c9b65ff73
+
 gemfile:
   - gemfiles/rails_4.1.gemfile
   - gemfiles/rails_4.2.gemfile
 
-addons:
-    code_climate:
-        repo_token: a30f207d6ca699991edc95ac41c1ff257125c1f5de9343a21edee96c9b65ff73
+before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
+
+script:
+  rake test
+
+after_script:
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
