@@ -1,6 +1,8 @@
 module Errdo
   class ApplicationController < ::ApplicationController
 
+    layout "errdo/errdo_layout"
+
     before_action :_authenticate!
     before_action :_authorize!
 
