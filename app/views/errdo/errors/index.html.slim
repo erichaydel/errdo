@@ -23,7 +23,8 @@
           - @errors.each do |error|
             tr.errdo
               td.errdo.time-column
-                = link_to time_ago_in_words(error.last_occurred_at) + " ago", error, class: "errdo"
+                - time = error.last_occurred_at ? time_ago_in_words(error.last_occurred_at) : "Error"
+                = link_to time + " ago", error, class: "errdo"
               td.errdo.user-column
                 - if user_show_path(error.last_experiencer)
                   = link_to user_show_string(error.last_experiencer),

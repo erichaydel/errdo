@@ -16,7 +16,7 @@ module Errdo
     private
 
     def update_last_occurrence
-      error.update(last_occurred_at: created_at) if error
+      error.update(last_occurred_at: created_at) if error && !created_at.nil?
     end
 
     def update_last_experiencer

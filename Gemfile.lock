@@ -1,9 +1,10 @@
 PATH
   remote: .
   specs:
-    errdo (0.12.5)
+    errdo (0.12.6)
       bootstrap-sass (>= 3.0)
       kaminari (~> 1.0.1)
+      rails (>= 4.1.0)
       sass-rails (>= 3.2)
       slack-notifier
       slim-rails (>= 3.0)
