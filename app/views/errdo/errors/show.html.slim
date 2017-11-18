@@ -4,29 +4,20 @@
       div
         b Total Occurrences
       = @error.error_occurrences.count
+
       div
         b Affected Users
-      .level
-        = @error.affected_users.length
-        a.button.is-inverted
-          | Expand
-      #users
-        div
-          | user@email.com
-        div
-          | user@email.com1
-        div
-          | user@email.com2
-        div
-          | user@email.com3
-      / - for user in @error.affected_users
-      /   = link_to user_show_string(user), user_show_path(user)
-      / - @error.error_occurrences.order(created_at: :desc).last(5).each do |occurrence|
-      /   div
-      /     = link_to error_path(id: @error.id, occurrence_id: occurrence.id)
-      /       = time_ago_in_words(occurrence.created_at) + " ago "
-      /       | to
-      /       = " " + user_show_string(occurrence.experiencer)
+        br
+        .level
+          = @error.affected_users.length
+          - if @error.affected_users.any?
+            a#affected-users-button.button.is-inverted
+              | Expand
+      #affected-users.is-hidden
+        - for user in @error.affected_users
+          = link_to user_show_string(user), user_show_path(user)
+          | ,
+
       div
         b Oldest
       = @error.oldest_occurrence.created_at.in_time_zone("EST").to_s(:time_in_zone)
@@ -45,7 +36,7 @@
         = f.submit "Update status", class: "button is-primary"
 
     .column.is-three-quarters
-      = column_chart @error.error_occurrences.group_by_hour(:created_at, range: 1.day.ago..Time.now, format: "%I%p").count, discrete: true, height: "200px"
+      = column_chart @error.error_occurrences.group_by_hour(:created_at, range: 1.day.ago+1.hour..Time.now+1.hour, format: "%I%p").count, discrete: true, height: "200px", colors: ["#00d1b2"]
       .tabs.is-boxed
         ul
           li.is-active
@@ -53,7 +44,7 @@
           li
             a[container='#tab1'] User
 
-      #tab0.container.tabbed
+      #tab0.tabbed
         table.table.is-striped.is-bordered
           tbody
             tr
@@ -98,16 +89,22 @@
                 b Requested URL
               td = @error.url
 
-        b Cookie Values
-        .errdo-backtrace-box
-          = @occurrence.cookie_values
+        div
+          b Cookie Values
+          .errdo-backtrace-box
+            = @occurrence.cookie_values
+        br
+        div
+          b Backtrace
+          .errdo-cookies-box
+            - @error.backtrace.each do |line|
+              div
+                - if line =~ /\/ruby-[0-9]\.[0-9]\.[0-9]\//
+                  span.has-text-grey = line
+                - else
+                  b = line
 
-        b Backtrace
-        .errdo-cookies-box.container
-          - @error.backtrace.each do |line|
-            div
-              = line
-      #tab1.container.tabbed.is-hidden
+      #tab1.tabbed.is-hidden
         table.table.is-striped.is-bordered
           tbody
             tr

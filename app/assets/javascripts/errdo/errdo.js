@@ -11,4 +11,9 @@ $(document).ready(function() {
     $(".tabbed").addClass('is-hidden');
     $(div).removeClass('is-hidden');
   });
+
+  $('#affected-users-button').on('click', function() {
+    $('#affected-users').toggleClass('is-hidden');
+  })
+
 });
