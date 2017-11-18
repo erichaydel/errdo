@@ -1,5 +1,8 @@
 .container-fluid
   .row
+    .col-md-12
+      = column_chart @error.error_occurrences.group_by_hour(:created_at, range: 2.weeks.ago..Time.now).count, discrete: true
+  .row
     .col-md-3.col-md-offset-1
       h3
         | Total Occurrences

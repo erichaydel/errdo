@@ -3,6 +3,8 @@ html
     meta name="viewport" content="width=device-width, initial-scale=1"
     = csrf_meta_tag
     = stylesheet_link_tag "errdo/errdo", media: :all
+    = javascript_include_tag "https://www.gstatic.com/charts/loader.js"
+    = javascript_include_tag "errdo/errdo"
 
 body
   = render partial: "layouts/errdo/navbar"
