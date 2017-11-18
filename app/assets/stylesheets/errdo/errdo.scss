@@ -1,84 +1,84 @@
-.errdo-status {
-    display: block;
-    height: 20px;
-    width: 4.5em;
-    line-height: 12px;
+// .errdo-status {
+//     display: block;
+//     height: 20px;
+//     width: 4.5em;
+//     line-height: 12px;
 
-    background-color: green;
-    color: white;
-    text-align: center;
-    margin-top: 1px;
-    padding-top: 4px;
+//     background-color: green;
+//     color: white;
+//     text-align: center;
+//     margin-top: 1px;
+//     padding-top: 4px;
 
-    float: right;
-}
+//     float: right;
+// }
 
-.errdo-active {
-  @extend .errdo-status;
+// .errdo-active {
+//   @extend .errdo-status;
 
-  background-color: #e74c3c;
-}
+//   background-color: #e74c3c;
+// }
 
-.errdo-resolved {
-  @extend .errdo-status;
+// .errdo-resolved {
+//   @extend .errdo-status;
 
-  background-color: #2ecc71;
-}
+//   background-color: #2ecc71;
+// }
 
-.errdo-wontfix {
-  @extend .errdo-status;
+// .errdo-wontfix {
+//   @extend .errdo-status;
 
-  background-color: #f1c40f;
-}
+//   background-color: #f1c40f;
+// }
 
 
-.status-column {
-  max-width: 0.5em;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  text-align: right;
-}
+// .status-column {
+//   max-width: 0.5em;
+//   text-overflow: ellipsis;
+//   white-space: nowrap;
+//   text-align: right;
+// }
 
-.time-column {
-  max-width: 1em;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
+// .time-column {
+//   max-width: 1em;
+//   text-overflow: ellipsis;
+//   white-space: nowrap;
+// }
 
-.user-column {
-  max-width: 1.2em;
-  text-overflow: ellipsis;
-}
+// .user-column {
+//   max-width: 1.2em;
+//   text-overflow: ellipsis;
+// }
 
-.class-column {
-  max-width: 2em;
-  text-overflow: ellipsis;
-}
+// .class-column {
+//   max-width: 2em;
+//   text-overflow: ellipsis;
+// }
 
-.message-column {
-  max-width: 2em;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-}
+// .message-column {
+//   max-width: 2em;
+//   text-overflow: ellipsis;
+//   white-space: nowrap;
+//   overflow: hidden;
+// }
 
-.count-column {
-  max-width: 0.5em;
-  text-overflow: ellipsis;
-  text-align: right;
-}
+// .count-column {
+//   max-width: 0.5em;
+//   text-overflow: ellipsis;
+//   text-align: right;
+// }
 
-table tr td a {
-  &.errdo {
-    display:block;
-    height:100%;
-    width:100%;
-  }
-}
+// table tr td a {
+//   &.errdo {
+//     display:block;
+//     height:100%;
+//     width:100%;
+//   }
+// }
 
 .errdo-backtrace-box {
   white-space: nowrap;
-  overflow: scroll;
+  overflow-y: scroll;
   background-color: #f8f8f8;
   padding: 10px;
   max-height: 500px;
@@ -88,8 +88,8 @@ table tr td a {
   @extend .errdo-backtrace-box;
 }
 
-.errdo-status-select {
-  // margin-top: 10px;
-  margin-bottom: 5px;
-  width: 100%;
-}
+// .errdo-status-select {
+//   // margin-top: 10px;
+//   margin-bottom: 5px;
+//   // width: 100%;
+// }

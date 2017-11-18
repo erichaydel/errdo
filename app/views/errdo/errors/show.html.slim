@@ -1,14 +1,11 @@
-.container-fluid
-  .row
-    .col-md-12
-      = column_chart @error.error_occurrences.group_by_hour(:created_at, range: 2.weeks.ago..Time.now).count, discrete: true
-  .row
-    .col-md-3.col-md-offset-1
-      h3
-        | Total Occurrences
+.container
+  .columns
+    .column.is-one-fifth
+      div
+        b Total Occurrences
       = @error.error_occurrences.count
-      h3
-        | Affected Users
+      div
+        b Affected Users
       = @error.affected_users.length
       br
       - for user in @error.affected_users
@@ -19,76 +16,104 @@
       /       = time_ago_in_words(occurrence.created_at) + " ago "
       /       | to
       /       = " " + user_show_string(occurrence.experiencer)
-      h3
-        | Oldest
+      div
+        b Oldest
       = @error.oldest_occurrence.created_at.in_time_zone("EST").to_s(:time_in_zone)
-      h3
-        | Newest
+      div
+        b Newest
       = @error.newest_occurrence.created_at.in_time_zone("EST").to_s(:time_in_zone)
-      h3
-        | Span
+      div
+        b Span
       = distance_of_time_in_words(@error.newest_occurrence.created_at - @error.oldest_occurrence.created_at)
 
-      h1
-        | Status
+      div
+        b Status
       = form_for @error do |f|
         = f.select(:status, Errdo::Error.statuses.keys, {}, class: "form-control errdo-status-select")
         = f.submit "Update status", class: "btn btn-primary"
 
-    .col-md-7
+    .column.is-three-quarters
+      = column_chart @error.error_occurrences.group_by_hour(:created_at, range: 1.day.ago..Time.now, format: "%I%p").count, discrete: true, height: "200px"
+      .tabs.is-boxed
+        ul
+          li.is-active
+            a[container='#tab0'] Debug
+          li
+            a[container='#tab1'] User
 
-      h3 Occurrence Time
-      div = @occurrence.created_at
+      #tab0.container.tabbed
+        table.table.is-striped.is-bordered
+          tbody
+            tr
+              td
+                b Exception Class
+              td = @error.exception_class_name
 
-      h3 Number of times this error occurred
-      = @error.occurrence_count
+            tr
+              td
+                b Exception message
+              td = @error.exception_message
 
-      h3 Exception Class
-      div = @error.exception_class_name
+            tr
+              td
+                b Occurrence Time
+              td = @occurrence.created_at
 
-      h3 Exception message
-      div = @error.exception_message
+            tr
+              td
+                b Param Values
+              td = @occurrence.param_values
 
-      h3 Experiencer
-      div
-        - if user_show_path(@occurrence.experiencer)
-          = link_to user_show_string(@occurrence.experiencer),
-            user_show_path(@occurrence.experiencer), class: "errdo"
-        - else
-          = user_show_string(@occurrence.experiencer)
 
-      h3 Param Values
-      div = @occurrence.param_values
+            tr
+              td
+                b Referer
+              td = @occurrence.referer || "None"
 
-      h3 Backtrace
-      .errdo-backtrace-box
-        - @error.backtrace.each do |line|
-          div
-            = line
 
-      h3 IP address
-      div = @occurrence.ip
+            tr
+              td
+                b Header Values
+              td = @occurrence.header_values
 
-      h3 User Agent
-      div = @occurrence.user_agent
+            tr
+              td
+                b HTTP Method
+              td = @error.http_method
 
-      h3 Referer
-      div = @occurrence.referer || "None"
+            tr
+              td
+                b Requested URL
+              td = @error.url
 
-      h3 Cookie Values
-      .errdo-backtrace-box
-        = @occurrence.cookie_values
+        b Cookie Values
+        .errdo-backtrace-box
+          = @occurrence.cookie_values
 
-      h3 Header Values
-      div = @occurrence.header_values
+        b Backtrace
+        .errdo-cookies-box.container
+          - @error.backtrace.each do |line|
+            div
+              = line
+      #tab1.container.tabbed.is-hidden
+        table.table.is-striped.is-bordered
+          tbody
+            tr
+              td
+                b Experiencer
+              td
+                - if user_show_path(@occurrence.experiencer)
+                  = link_to user_show_string(@occurrence.experiencer),
+                    user_show_path(@occurrence.experiencer), class: "errdo"
+                - else
+                  = user_show_string(@occurrence.experiencer)
 
-      h3 HTTP Method
-      div = @error.http_method
+            tr
+              td
+                b IP Address
+              td = @occurrence.ip
 
-      h3 Requested URL
-      div = @error.url
-
-      br
-      br
-      br
-      br
+            tr
+              td
+                b User Agent
+              td = @occurrence.user_agent
