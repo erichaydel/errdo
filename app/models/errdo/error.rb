@@ -46,6 +46,18 @@ module Errdo
       return params
     end
 
+    def affected_users
+      error_occurrences.group("experiencer_id, experiencer_type").map(&:experiencer)
+    end
+
+    def oldest_occurrence
+      error_occurrences.order(created_at: :asc).limit(1).first
+    end
+
+    def newest_occurrence
+      error_occurrences.order(created_at: :desc).limit(1).first
+    end
+
     private
 
     def create_unique_string

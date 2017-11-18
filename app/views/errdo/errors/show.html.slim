@@ -1,14 +1,30 @@
 .container-fluid
   .row
     .col-md-3.col-md-offset-1
-      h1
-        | Last 5 occurrences
-      - @error.error_occurrences.order(created_at: :desc).last(5).each do |occurrence|
-        div
-          = link_to error_path(id: @error.id, occurrence_id: occurrence.id)
-            = time_ago_in_words(occurrence.created_at) + " ago "
-            | to
-            = " " + user_show_string(occurrence.experiencer)
+      h3
+        | Total Occurrences
+      = @error.error_occurrences.count
+      h3
+        | Affected Users
+      = @error.affected_users.length
+      br
+      - for user in @error.affected_users
+        = link_to user_show_string(user), user_show_path(user)
+      / - @error.error_occurrences.order(created_at: :desc).last(5).each do |occurrence|
+      /   div
+      /     = link_to error_path(id: @error.id, occurrence_id: occurrence.id)
+      /       = time_ago_in_words(occurrence.created_at) + " ago "
+      /       | to
+      /       = " " + user_show_string(occurrence.experiencer)
+      h3
+        | Oldest
+      = @error.oldest_occurrence.created_at.in_time_zone("EST").to_s(:time_in_zone)
+      h3
+        | Newest
+      = @error.newest_occurrence.created_at.in_time_zone("EST").to_s(:time_in_zone)
+      h3
+        | Span
+      = distance_of_time_in_words(@error.newest_occurrence.created_at - @error.oldest_occurrence.created_at)
 
       h1
         | Status

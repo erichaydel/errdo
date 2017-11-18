@@ -54,6 +54,29 @@ class ErrorTest < ActiveSupport::TestCase
     setup do
       @error = FactoryGirl.create(:error)
     end
+
+    should "compute correct users affected" do
+      @occ1 = @error.error_occurrences.create(experiencer: users(:user))
+      assert_equal @error.affected_users, [users(:user)]
+      @occ2 = @error.error_occurrences.create(experiencer: users(:user2))
+      assert_equal @error.affected_users, [users(:user), users(:user2)]
+      @occ2 = @error.error_occurrences.create(experiencer: users(:user2))
+      assert_equal @error.affected_users, [users(:user), users(:user2)]
+    end
+
+    should "get oldest occurrence" do
+      @occ1 = @error.error_occurrences.create(experiencer: users(:user))
+      @occ2 = @error.error_occurrences.create(experiencer: users(:user), created_at: 1.week.ago)
+      @occ3 = @error.error_occurrences.create(experiencer: users(:user2))
+      assert_equal @error.oldest_occurrence, @occ2
+    end
+
+    should "get newest occurrence" do
+      @occ1 = @error.error_occurrences.create(experiencer: users(:user))
+      @occ2 = @error.error_occurrences.create(experiencer: users(:user), created_at: 1.week.ago)
+      @occ3 = @error.error_occurrences.create(experiencer: users(:user2))
+      assert_equal @error.newest_occurrence, @occ3
+    end
   end
 
 end
