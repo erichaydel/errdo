@@ -1,45 +1,63 @@
-#list
-  .container-fluid
-    .col-sm-10.col-sm-offset-1
-      h1
-        | All errors
+.container
+  = line_chart [{name: "Errors", data: @chart_data[:errors]}, {name: "Occurrences", data: @chart_data[:occurrences]}]
 
-      - total_count = @errors.total_count.to_i
-      .row
-        .col-md-6
-          .clearfix.total-count= "#{total_count} #{"error".pluralize(total_count)}"
+  .tabs.is-boxed
+    ul
+      li class=("is-active" if !params[:scope] || params[:scope] == "active")
+        = link_to "Active", errdo.root_path(scope: "active")
+      li class=("is-active" if params[:scope] == "resolved")
+        = link_to "Resolved", errdo.root_path(scope: "resolved")
+      li class=("is-active" if params[:scope] == "wontfix")
+        = link_to "Wontfix", errdo.root_path(scope: "wontfix")
+      li class=("is-active" if params[:scope] == "all")
+        = link_to "All", errdo.root_path(scope: "all")
 
+  table.table.is-bordered.is-striped.is-fullwidth
+    thead
+      th
+        | ID
+      th
+        | Last seen
+      th
+        | By
+      th
+        | Class name
+      th
+        | Message
+      th
+        | Count
+      th
+        | Status
+    tbody
+      - @errors.each do |error|
+        tr
+          td
+            strong
+              = link_to "##{error.id}", error
+          td
+            - time = error.last_occurred_at ? time_ago_in_words(error.last_occurred_at) : "Error"
+            = time + " ago"
+          td
+            - if user_show_path(error.last_experiencer)
+              = link_to user_show_string(error.last_experiencer),
+                user_show_path(error.last_experiencer), class: "errdo"
+            - else
+              = user_show_string(error.last_experiencer)
+          td
+            = error.exception_class_name
+          td
+            = error.exception_message
+          td
+            = error.occurrence_count
+          td
+            - if error.active?
+              span.tag.is-danger.is-medium
+                | Active
+            - elsif error.resolved?
+              span.tag.is-success.is-medium
+                | Resolved
+            - else
+              span.tag.is-warning.is-medium
+                | Wontfix
 
-      table.table.table-condensed.table-striped
-        thead
-          tr
-            th.time-column Last seen
-            th.user-column By
-            th.class-column Class Name
-            th.message-column Message
-            th.count-column Count
-            th.status-column Status
-        tbody
-          - @errors.each do |error|
-            tr.errdo
-              td.errdo.time-column
-                - time = error.last_occurred_at ? time_ago_in_words(error.last_occurred_at) : "Error"
-                = link_to time + " ago", error, class: "errdo"
-              td.errdo.user-column
-                - if user_show_path(error.last_experiencer)
-                  = link_to user_show_string(error.last_experiencer),
-                    user_show_path(error.last_experiencer), class: "errdo"
-                - else
-                  = user_show_string(error.last_experiencer)
-              td.errdo.class-column
-                = link_to error.exception_class_name, error, class: "errdo"
-              td.errdo.message-column
-                = link_to error.exception_message, error, class: "errdo"
-              td.errdo.count-column
-                = link_to error.occurrence_count, error, class: "errdo"
-              td.errdo.status-column
-                span class="errdo-#{error.status}"
-                  = error.status
-
-      .row
-        .col-md-6 = paginate(@errors)
+= paginate(@errors)
