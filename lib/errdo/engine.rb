@@ -1,5 +1,3 @@
-require 'bootstrap-sass'
-
 module Errdo
   class Engine < Rails::Engine
 

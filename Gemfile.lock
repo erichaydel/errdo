@@ -1,8 +1,7 @@
 PATH
   remote: .
   specs:
-    errdo (0.12.6)
-      bootstrap-sass (>= 3.0)
+    errdo (0.12.7)
       kaminari (~> 1.0.1)
       rails (>= 4.1.0)
       sass-rails (>= 3.2)
@@ -47,12 +46,7 @@ GEM
       thor (>= 0.14.0)
     arel (5.0.1.20140414130214)
     ast (2.3.0)
-    autoprefixer-rails (7.1.6)
-      execjs
     bcrypt (3.1.11)
-    bootstrap-sass (3.3.7)
-      autoprefixer-rails (>= 5.2.1)
-      sass (>= 3.3.4)
     builder (3.2.3)
     byebug (9.1.0)
     cancancan (2.1.1)
@@ -70,7 +64,6 @@ GEM
       warden (~> 1.2.3)
     docile (1.1.5)
     erubis (2.7.0)
-    execjs (2.7.0)
     factory_girl (4.9.0)
       activesupport (>= 3.0.0)
     ffi (1.9.18)
@@ -223,4 +216,4 @@ DEPENDENCIES
   webmock
 
 BUNDLED WITH
-   1.12.5
+   1.15.1
