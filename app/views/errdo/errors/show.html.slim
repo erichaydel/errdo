@@ -1,15 +1,26 @@
 .container
   .columns
-    .column.is-one-fifth
+    .column.is-one-fifth.box
       div
         b Total Occurrences
       = @error.error_occurrences.count
       div
         b Affected Users
-      = @error.affected_users.length
-      br
-      - for user in @error.affected_users
-        = link_to user_show_string(user), user_show_path(user)
+      .level
+        = @error.affected_users.length
+        a.button.is-inverted
+          | Expand
+      #users
+        div
+          | user@email.com
+        div
+          | user@email.com1
+        div
+          | user@email.com2
+        div
+          | user@email.com3
+      / - for user in @error.affected_users
+      /   = link_to user_show_string(user), user_show_path(user)
       / - @error.error_occurrences.order(created_at: :desc).last(5).each do |occurrence|
       /   div
       /     = link_to error_path(id: @error.id, occurrence_id: occurrence.id)
@@ -29,8 +40,9 @@
       div
         b Status
       = form_for @error do |f|
-        = f.select(:status, Errdo::Error.statuses.keys, {}, class: "form-control errdo-status-select")
-        = f.submit "Update status", class: "btn btn-primary"
+        .select
+          = f.select(:status, Errdo::Error.statuses.keys, {})
+        = f.submit "Update status", class: "button is-primary"
 
     .column.is-three-quarters
       = column_chart @error.error_occurrences.group_by_hour(:created_at, range: 1.day.ago..Time.now, format: "%I%p").count, discrete: true, height: "200px"
