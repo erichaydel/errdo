@@ -3,7 +3,6 @@ PATH
   specs:
     errdo (0.12.7)
       chartkick (~> 2.2.0)
-      groupdate (>= 3.0.0)
       kaminari (~> 1.0.1)
       rails (>= 4.1.0)
       sass-rails (>= 3.2)
@@ -70,8 +69,6 @@ GEM
     factory_girl (4.9.0)
       activesupport (>= 3.0.0)
     ffi (1.9.18)
-    groupdate (3.2.0)
-      activesupport (>= 3)
     hashdiff (0.3.7)
     i18n (0.9.1)
       concurrent-ruby (~> 1.0)

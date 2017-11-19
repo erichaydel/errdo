@@ -58,6 +58,12 @@ module Errdo
       error_occurrences.order(created_at: :desc).limit(1).first
     end
 
+    def grouped_errors
+      errors = error_occurrences.where("created_at > ?", 2.weeks.ago)
+      range = useful_time(Time.now - errors.first.created_at)
+      hist(errors, 24, Time.now - range, range)
+    end
+
     private
 
     def create_unique_string
@@ -65,6 +71,27 @@ module Errdo
         Digest::SHA1.hexdigest(backtrace.to_a.reject { |l| l[%r{\/ruby-[0-9]*\.[0-9]*\.[0-9]*\/|_test.rb}] }.join("") +
                                exception_message.to_s.gsub(/:0x[0-f]{14}/, "") +
                                exception_class_name.to_s).to_s
+    end
+
+    def hist(data, num_bins, time_start, time_range)
+      times = {}
+      (0..num_bins).each do |num|
+        bin_start = (time_start + ((num.to_f / num_bins.to_f) * time_range))
+        bin_end =   (time_start + (((num + 1) / num_bins.to_f) * time_range)).beginning_of_hour
+        bin_start = bin_start.beginning_of_hour
+        times[bin_start.strftime("%m/%d %I%p")] = data.select { |d| (d.created_at > bin_start) && (d.created_at <= bin_end) }.count
+      end
+      return times
+    end
+
+    def useful_time(time)
+      if time < 1.day
+        1.day
+      elsif time < 1.week
+        1.week
+      else
+        2.weeks
+      end
     end
 
   end

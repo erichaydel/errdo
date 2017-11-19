@@ -1,5 +1,4 @@
 require 'chartkick'
-require 'groupdate'
 
 module Errdo
   class Engine < Rails::Engine
@@ -15,7 +14,7 @@ module Errdo
     end
 
     initializer 'Errdo precompile hook', group: :all do |app|
-      app.config.assets.precompile += %w[errdo/errdo.css errdo/errdo.js chartkick.js]
+      app.config.assets.precompile += %w[errdo/errdo.css errdo/errdo.js errdo/logo.png]
     end
 
   end

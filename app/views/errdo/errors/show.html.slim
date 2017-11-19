@@ -36,7 +36,7 @@
         = f.submit "Update status", class: "button is-primary"
 
     .column.is-three-quarters
-      = column_chart @error.error_occurrences.group_by_hour(:created_at, range: 1.day.ago+1.hour..Time.now+1.hour, format: "%I%p").count, discrete: true, height: "200px", colors: ["#00d1b2"]
+      = column_chart @error.grouped_errors, discrete: true, height: "200px", colors: ["#00d1b2"]
       .tabs.is-boxed
         ul
           li.is-active
