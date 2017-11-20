@@ -1,5 +1,5 @@
 .container
-  = line_chart [{name: "Errors", data: @chart_data[:errors]}, {name: "Occurrences", data: @chart_data[:occurrences]}]
+  = line_chart [{name: "Errors", data: @chart_data[:errors]}, {name: "Occurrences", data: @chart_data[:occurrences]}], discrete: true, height: "200px", colors: ["#000", "#00d1b2"]
 
   .tabs.is-boxed
     ul
@@ -60,4 +60,7 @@
               span.tag.is-warning.is-medium
                 | Wontfix
 
-= paginate(@errors)
+.container
+  .columns.is-centered
+    .column.is-half
+      = paginate(@errors)

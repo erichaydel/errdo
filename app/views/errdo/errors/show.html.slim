@@ -35,14 +35,27 @@
           = f.select(:status, Errdo::Error.statuses.keys, {})
         = f.submit "Update status", class: "button is-primary"
 
+      = @test
     .column.is-three-quarters
-      = column_chart @error.grouped_errors, discrete: true, height: "200px", colors: ["#00d1b2"]
-      .tabs.is-boxed
-        ul
-          li.is-active
-            a[container='#tab0'] Debug
-          li
-            a[container='#tab1'] User
+      = column_chart @error.grouped_error_occurrences, discrete: true, height: "200px", colors: ["#00d1b2"]
+      .columns
+        .column.is-three-quarters
+          span.tabs.is-boxed
+            ul
+              li.is-active
+                a[container='#tab0'] Debug
+              li
+                a[container='#tab1'] User
+        .column
+          .level
+            - ind = [@index-1, 0].max
+            = link_to "<", error_path(@error, occurrence_index: ind), class: "button", disabled: (@index == 0)
+            span
+              = @index + 1
+              | of
+              = @total
+            - ind = [@index+1, @total-1].min
+            = link_to ">", error_path(@error, occurrence_index: ind), class: "button", disabled: (@index == @total-1)
 
       #tab0.tabbed
         table.table.is-striped.is-bordered

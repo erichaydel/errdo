@@ -24,18 +24,14 @@ module Errdo
                           .page(params[:page])
 
       @chart_data = {
-        errors:      Errdo::Error.where(created_at: 2.weeks.ago..Time.now)
-                                 .group_by_day(:created_at)
-                                 .count,
-        occurrences: Errdo::ErrorOccurrence.where(created_at: 2.weeks.ago..Time.now)
-                                           .group_by_day(:created_at)
-                                           .count
+        errors:      Error.grouped_by_time(2.weeks),
+        occurrences: ErrorOccurrence.grouped_by_time(2.weeks)
       }
     end
 
     def show
       @error = Errdo::Error.find(params[:id])
-      @occurrence = selected_occurrence(@error)
+      @occurrence, @index, @total = selected_occurrence(@error)
     end
 
     def update
@@ -45,7 +41,7 @@ module Errdo
       else
         flash[:alert] = "Updating failed"
       end
-      @occurrence = selected_occurrence(@error)
+      @occurrence, @index, @total = selected_occurrence(@error)
       render :show
     end
 
@@ -61,10 +57,14 @@ module Errdo
     end
 
     def selected_occurrence(error)
+      occurrences = error.error_occurrences.order(created_at: :desc)
       if params[:occurrence_id]
-        Errdo::ErrorOccurrence.find(params[:occurrence_id])
+        id = occurrences.find { |o| o.id == params[:occurrence_id] }
+        return occurrences[id], id, occurrences.length
+      elsif params[:occurrence_index]
+        return occurrences[params[:occurrence_index].to_i], params[:occurrence_index].to_i, occurrences.length
       else
-        error.error_occurrences.last
+        return occurrences.last, 0, occurrences.length
       end
     end
 
@@ -81,5 +81,6 @@ module Errdo
         DEFAULT_SCOPE
       end
     end
+
   end
 end
