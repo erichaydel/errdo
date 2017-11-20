@@ -38,7 +38,6 @@
           .control
             = f.submit "Update status", class: "button is-primary"
 
-      = @test
     .column.is-three-quarters
       = column_chart @error.grouped_error_occurrences, discrete: true, height: "200px", colors: ["#00d1b2"]
       .columns

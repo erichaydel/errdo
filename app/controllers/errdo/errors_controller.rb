@@ -59,7 +59,7 @@ module Errdo
     def selected_occurrence(error)
       occurrences = error.error_occurrences.order(created_at: :desc)
       if params[:occurrence_id]
-        id = occurrences.find { |o| o.id == params[:occurrence_id] }
+        id = occurrences.find { |o| o.id == params[:occurrence_id] } || 0
         return occurrences[id], id, occurrences.length
       elsif params[:occurrence_index]
         return occurrences[params[:occurrence_index].to_i], params[:occurrence_index].to_i, occurrences.length
