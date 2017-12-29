@@ -4,13 +4,13 @@
   .tabs.is-boxed
     ul
       li class=("is-active" if !params[:scope] || params[:scope] == "active")
-        = link_to "Active", errdo.root_path(scope: "active")
+        = link_to "Active", root_path(scope: "active")
       li class=("is-active" if params[:scope] == "resolved")
-        = link_to "Resolved", errdo.root_path(scope: "resolved")
+        = link_to "Resolved", root_path(scope: "resolved")
       li class=("is-active" if params[:scope] == "wontfix")
-        = link_to "Wontfix", errdo.root_path(scope: "wontfix")
+        = link_to "Wontfix", root_path(scope: "wontfix")
       li class=("is-active" if params[:scope] == "all")
-        = link_to "All", errdo.root_path(scope: "all")
+        = link_to "All", root_path(scope: "all")
 
   table.table.is-bordered.is-striped.is-fullwidth
     thead
