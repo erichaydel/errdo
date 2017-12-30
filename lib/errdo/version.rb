@@ -1,3 +1,3 @@
 module Errdo
-  VERSION = '0.12.8'.freeze
+  VERSION = '0.12.9'.freeze
 end
