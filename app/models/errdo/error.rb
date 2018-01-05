@@ -49,7 +49,7 @@ module Errdo
     end
 
     def affected_users
-      error_occurrences.group("experiencer_id, experiencer_type").map(&:experiencer).compact
+      error_occurrences.group(:experiencer_id, :experiencer_type).select(:experiencer_id, :experiencer_type).map(&:experiencer).compact
     end
 
     def oldest_occurrence
