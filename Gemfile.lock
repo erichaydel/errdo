@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    errdo (0.12.11)
+    errdo (0.12.12)
       chartkick (~> 2.2.0)
       kaminari (~> 1.0.1)
       rails (>= 4.1.0)
