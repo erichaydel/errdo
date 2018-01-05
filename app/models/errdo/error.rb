@@ -3,6 +3,8 @@ include Errdo::HistogramHelper
 module Errdo
   class Error < ActiveRecord::Base
 
+    REJECTION_REGEX = %r{\/ruby-[0-9]*\.[0-9]*\.[0-9]*\/|\/(ruby|gems)\/[0-9]*\.[0-9]*\.[0-9]*\/(gems|bin|webrick)|_test.rb|\/app\/bin\/bundle}
+
     paginates_per 20
 
     self.table_name = Errdo.error_name
@@ -31,7 +33,7 @@ module Errdo
     # I need a more elegant way to do this
     def self.create_unique_string_from_params(params)
       Digest::SHA1.hexdigest(
-        params[:backtrace].reject { |l| l[%r{\/ruby-[0-9]*\.[0-9]*\.[0-9]*\/|_test.rb}] }.join("") +
+        params[:backtrace].reject { |l| l[REJECTION_REGEX] }.join("") +
         params[:exception_message].to_s.gsub(/:0x[0-f]{14}/, "") +
         params[:exception_class_name].to_s
       ).to_s
@@ -76,7 +78,7 @@ module Errdo
 
     def create_unique_string
       self.backtrace_hash =
-        Digest::SHA1.hexdigest(backtrace.to_a.reject { |l| l[%r{\/ruby-[0-9]*\.[0-9]*\.[0-9]*\/|_test.rb}] }.join("") +
+        Digest::SHA1.hexdigest(backtrace.to_a.reject { |l| l[REJECTION_REGEX] }.join("") +
                                exception_message.to_s.gsub(/:0x[0-f]{14}/, "") +
                                exception_class_name.to_s).to_s
     end

@@ -16,7 +16,7 @@
       #affected-users.is-hidden
         - for user in @error.affected_users
           = link_to user_show_string(user), user_show_path(user)
-          | ,
+          | , &nbsp
 
       div
         b Oldest
@@ -114,7 +114,7 @@
           .errdo-cookies-box
             - @error.backtrace.each do |line|
               div
-                - if line =~ /\/ruby-[0-9]*\.[0-9]*\.[0-9]*\//
+                - if line =~ Errdo::Error::REJECTION_REGEX
                   span.has-text-grey = line
                 - else
                   b = line
