@@ -60,17 +60,17 @@ module Errdo
       def set_accessible_params(env, request, controller, new_user)
         @exception_class_name = env["action_dispatch.exception"].class.to_s
         @exception_message =    env["action_dispatch.exception"].try(:message)
-        @http_method =          request.try(:request_method)
-        @host_name =            request.try(:server_name)
-        @url =                  request.try(:original_url)
+        @http_method =          deep_utf8_scrub(request.try(:request_method))
+        @host_name =            deep_utf8_scrub(request.try(:server_name))
+        @url =                  deep_utf8_scrub(request.try(:original_url))
         @backtrace =            prepare_backtrace(env)
         @ip =                   request.try(:ip)
-        @user_agent =           request.try(:user_agent)
+        @user_agent =           deep_utf8_scrub(request.try(:user_agent))
         @referer =              request.try(:referer)
-        @query_string =         request.try(:query_string)
-        @param_values =         scrubbed_params(request)
-        @cookie_values =        request.try(:cookies)
-        @header_values =        controller.try(:headers)
+        @query_string =         deep_utf8_scrub(request.try(:query_string))
+        @param_values =         deep_utf8_scrub(scrubbed_params(request))
+        @cookie_values =        deep_utf8_scrub(request.try(:cookies))
+        @header_values =        deep_utf8_scrub(controller.try(:headers))
         @experiencer_id =       new_user.try(:id)
         @experiencer_type =     new_user.try(:class).try(:name)
       end
@@ -89,6 +89,16 @@ module Errdo
           params[key] = value.headers if value.is_a? ActionDispatch::Http::UploadedFile
         end
         params
+      end
+
+      def deep_utf8_scrub(obj)
+        if obj.respond_to? :each
+          obj.each { |o| deep_utf8_scrub(o) }
+        end
+        if obj.is_a? String
+          obj = obj.scrub!
+        end
+        return obj
       end
 
     end
