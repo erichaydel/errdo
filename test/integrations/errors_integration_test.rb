@@ -144,6 +144,12 @@ class ErrorsIntegrationTest < ActionDispatch::IntegrationTest
       @error_occurrence = Errdo::ErrorOccurrence.last
       @error_occurrence.param_values.to_s
     end
+
+    should "not have issues making an error occurrence when there is a utf8 encoding error" do
+      assert_difference 'Errdo::ErrorOccurrence.count', 1 do
+        get static_generic_error_path, utf: "\xc3\x28"
+      end
+    end
   end
 
   private
