@@ -45,7 +45,9 @@ module Errdo
 
     def self.clean_backtrace(params)
       unless params[:backtrace].empty?
-        params[:backtrace][0] = params[:backtrace][0].gsub(/[_]{1,}[0-9]+/, "")
+        params[:backtrace].each do |backtrace|
+          backtrace.gsub!(/[_]{1,}[0-9]+/, "")
+        end
       end
       return params
     end
