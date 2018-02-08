@@ -21,3 +21,11 @@ td {
 .errdo-nav-link {
   color: lightgray;
 }
+
+span.errdo-long-message {
+  overflow: hidden;
+  word-break: break-all;
+  display: inline-block;
+  max-height: 2.5em;
+  text-overflow: ellipse;
+}

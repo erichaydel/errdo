@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get 'static/double_render_error'
   get 'static/embedded_partial_error'
   post 'static/post_error'
+  get 'static/extremely_long_error'
 
   resources :users
 
